@@ -21,11 +21,11 @@ char *color_init(void){
         printf("entree la couleur format exadecimal ex : FF00FF\n");
         scanf("%s", color);
         if(strlen(color) != 6){
-            printf("format de couleur entrée non valide");
+            printf("format de couleur entrée non valide\n");
             i = 1;
         }
-        if (color_is_exa(color) == 0){
-            printf("format de couleur entrée non valide");
+        if (i == 0 && color_is_exa(color) == 0){
+            printf("format de couleur entrée non valide\n");
             i = 1;
         }
     }
