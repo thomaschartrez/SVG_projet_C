@@ -6,6 +6,8 @@
 #include <string.h>
 
 
+
+
 typedef struct point_t{
     int x;
     int y;
@@ -17,7 +19,43 @@ typedef struct line_t{
     point_s *b;
 } line_s;
 
+typedef struct circle_t{
+    point_s *a;
+    int r;
+    char *color_bord;
+    char *color_remplissage;
+}circle_s;
+
+typedef struct rectangle_t{
+    int height;
+    int width;
+    point_s *a;
+    point_s *b;
+}rectangle_s;
+
+typedef enum {LINE, CIRCLE, RECTANGLE, SQUARE} Forme; 
+
+typedef union {
+    line_s line;
+    circle_s circle;
+} Figure;
+
+
+typedef struct node_t{
+    char *txt_html;
+    Forme type;
+    Figure *figure;
+    struct node_t *next;
+}node_s;
+
+typedef struct list_t{
+    node_s  *node;
+    unsigned int length;
+}list_s;
+
 int    add_new_forme(void);
 char    *color_init(void);
+void    free_list(list_s *list);
+void    free_node(node_s *node);
 
 #endif

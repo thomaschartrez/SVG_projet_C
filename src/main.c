@@ -9,8 +9,7 @@ int main(void){
         printf("1 : pour creer\n");
         printf("2 : pour editer\n");
         printf("3 : pour sauver\n");
-        printf("4 : pour charger\n");
-        printf("5 : pour visualiser\n");
+        printf("4 : pour charge et visualiser\n");
         scanf("%hhd", &i);
         if (i == 0)
             return 0;
