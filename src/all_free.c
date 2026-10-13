@@ -19,12 +19,13 @@ void    free_node(node_s *node){
     switch (node->type)
     {
     case LINE:
-        free_line(&node->figure->line);
+        free_line(node->figure->line);
         break;
     case CIRCLE:
-        free_circle(&node->figure->circle);
+        free_circle(node->figure->circle);
         break;
     }
+    free(node->figure);
     free(node->txt_html);
     free(node);
 }

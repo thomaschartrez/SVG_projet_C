@@ -22,9 +22,10 @@ void    add_new_point(point_s *point){
     
 }*/
 
-int add_line(FILE *file){
+int add_line(FILE *file, list_s *list){
 
     line_s *line;
+    node_s *node;
     
     line = malloc(sizeof(line_s));
     line->color = color_init();
@@ -34,17 +35,16 @@ int add_line(FILE *file){
     add_new_point(line->a);
     printf("entrée les coordonées du points b\n");
     add_new_point(line->b);
-    fprintf(file, "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" stroke=\"#%s\" />\n"
-        , line->a->x, line->a->y,  line->b->x, line->b->y,line->color);
-    free(line->color);
-    free(line->a);
-    free(line->b);
-    free(line);
+    // fprintf(file, "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" stroke=\"#%s\" />\n"
+    //     , line->a->x, line->a->y,  line->b->x, line->b->y,line->color);
+    node = init_node_line(LINE, line);
+    list = add_node(list, node);
     return 0;
 }
 
-int add_circle(FILE *file){
+int add_circle(FILE *file, list_s *list){
 
+    node_s *node;
     circle_s *circle;
     
     circle = malloc(sizeof(circle_s));
@@ -57,16 +57,15 @@ int add_circle(FILE *file){
     add_new_point(circle->a);
     printf("taille du rayon\n");
     scanf("%d", &circle->r);
-    fprintf(file, "<circle cx=\"%d\" cy=\"%d\" r=\"%d\" fill=\"#%s\" stroke=\"#%s\" />",
-    circle->a->x, circle->a->y, circle->r, circle->color_remplissage, circle->color_bord);
-    free(circle->color_remplissage);
-    free(circle->color_bord);
-    free(circle->a);
-    free(circle);
+    // fprintf(file, "<circle cx=\"%d\" cy=\"%d\" r=\"%d\" fill=\"#%s\" stroke=\"#%s\" />",
+    // circle->a->x, circle->a->y, circle->r, circle->color_remplissage, circle->color_bord);
+    node = init_node_circle(CIRCLE, circle);
+    list = add_node(list, node);
+
     return 0;
 }
 
-int    add_new_forme(void){
+int    add_new_forme(list_s *list){
     unsigned char i;
 
     FILE *file = fopen("html/dsoformer.html", "w");
@@ -81,9 +80,9 @@ int    add_new_forme(void){
         if (i == 0)
             break;
         if (i == 1)
-            add_line(file);
+            add_line(file, list);
         if (i == 2)
-            add_circle(file);
+            add_circle(file, list);
     }
     fprintf(file, "</svg>\n");
     fclose(file);

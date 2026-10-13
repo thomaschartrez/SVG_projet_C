@@ -5,9 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
-
-
 typedef struct point_t{
     int x;
     int y;
@@ -33,11 +30,11 @@ typedef struct rectangle_t{
     point_s *b;
 }rectangle_s;
 
-typedef enum {LINE, CIRCLE, RECTANGLE, SQUARE} Forme; 
+typedef enum {LINE, CIRCLE} Forme; 
 
 typedef union {
-    line_s line;
-    circle_s circle;
+    line_s *line;
+    circle_s *circle;
 } Figure;
 
 
@@ -53,9 +50,17 @@ typedef struct list_t{
     unsigned int length;
 }list_s;
 
-int    add_new_forme(void);
+int    add_new_forme(list_s *list);
 char    *color_init(void);
 void    free_list(list_s *list);
 void    free_node(node_s *node);
+list_s  *init_list(void);
+list_s *add_node(list_s *list, node_s *node);
+list_s *supp_node(list_s *list, int index);
+void    free_node(node_s *node);
+void    free_list(list_s *list);
+node_s *init_node_circle(Forme type, circle_s *circle);
+int add_to_file(list_s *list);
+node_s *init_node_line(Forme type ,line_s *line);
 
 #endif

@@ -3,8 +3,12 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -std=c99 -fstack-protector
 
 SRC = 	src/main.c \
+		src/add_to_file.c \
 		src/create_forme.c \
 		src/color.c \
+		src/chain_list.c \
+		src/all_free.c \
+		src/init_node.c \
 
 OBJS = $(SRC:.c=.o)
 

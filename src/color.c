@@ -15,11 +15,11 @@ char *color_init(void){
     char *color;
     int i = 1;
 
-    color = malloc(sizeof(char)* 1);
+    color = malloc(sizeof(char)* 7);
     while (i){
         i = 0;
         printf("entree la couleur format exadecimal ex : FF00FF\n");
-        scanf("%s", color);
+        scanf("%6s", color);
         if(strlen(color) != 6){
             printf("format de couleur entrée non valide\n");
             i = 1;
