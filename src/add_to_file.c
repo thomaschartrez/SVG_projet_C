@@ -18,13 +18,12 @@ int add_to_file(list_s *list){
     while(temp != NULL){
         switch (temp->type)
         {
-        case LINE:
-            add_line_to_file(temp->figure->line, file);
-            break;
-        
-        case CIRCLE:
-            add_circle_to_file(temp->figure->circle, file);
-            break;
+            case LINE:
+                add_line_to_file(temp->figure->line, file);
+                break;
+            case CIRCLE:
+                add_circle_to_file(temp->figure->circle, file);
+                break;
         }
         temp = temp->next;
     }

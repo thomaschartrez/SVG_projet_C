@@ -9,6 +9,7 @@ SRC = 	src/main.c \
 		src/chain_list.c \
 		src/all_free.c \
 		src/init_node.c \
+		src/modify.c \
 
 OBJS = $(SRC:.c=.o)
 

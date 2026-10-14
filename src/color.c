@@ -20,6 +20,7 @@ char *color_init(void){
         i = 0;
         printf("entree la couleur format exadecimal ex : FF00FF\n");
         scanf("%6s", color);
+        clear_stdin();
         if(strlen(color) != 6){
             printf("format de couleur entrée non valide\n");
             i = 1;

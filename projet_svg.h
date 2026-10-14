@@ -62,5 +62,8 @@ void    free_list(list_s *list);
 node_s *init_node_circle(Forme type, circle_s *circle);
 int add_to_file(list_s *list);
 node_s *init_node_line(Forme type ,line_s *line);
+int modify_forme(list_s *list);
+void    add_new_point(point_s *point);
+void clear_stdin(void);
 
 #endif

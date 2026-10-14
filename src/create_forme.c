@@ -9,6 +9,7 @@ void    add_new_point(point_s *point){
         scanf("%d", &point->x);
         printf("a y:\n");
         scanf("%d", &point->y);
+        clear_stdin();
         if (point->x <= 0 || point->y <= 0 ){
             printf("merci d utiliser des entier positifs\n");
             point->x = 0;
@@ -22,7 +23,7 @@ void    add_new_point(point_s *point){
     
 }*/
 
-int add_line(FILE *file, list_s *list){
+int add_line(list_s *list){
 
     line_s *line;
     node_s *node;
@@ -42,7 +43,7 @@ int add_line(FILE *file, list_s *list){
     return 0;
 }
 
-int add_circle(FILE *file, list_s *list){
+int add_circle(list_s *list){
 
     node_s *node;
     circle_s *circle;
@@ -57,6 +58,7 @@ int add_circle(FILE *file, list_s *list){
     add_new_point(circle->a);
     printf("taille du rayon\n");
     scanf("%d", &circle->r);
+    clear_stdin();
     // fprintf(file, "<circle cx=\"%d\" cy=\"%d\" r=\"%d\" fill=\"#%s\" stroke=\"#%s\" />",
     // circle->a->x, circle->a->y, circle->r, circle->color_remplissage, circle->color_bord);
     node = init_node_circle(CIRCLE, circle);
@@ -77,12 +79,14 @@ int    add_new_forme(list_s *list){
         printf("1 : pour creer une ligne\n");
         printf("2 : pour creer une cercle\n");
         scanf("%hhd", &i);
+        clear_stdin();
         if (i == 0)
             break;
         if (i == 1)
-            add_line(file, list);
+            add_line(list);
         if (i == 2)
-            add_circle(file, list);
+            add_circle(list);
+        i = 0;
     }
     fprintf(file, "</svg>\n");
     fclose(file);
