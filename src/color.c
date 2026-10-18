@@ -22,11 +22,11 @@ char *color_init(void){
         scanf("%6s", color);
         clear_stdin();
         if(strlen(color) != 6){
-            printf("format de couleur entrée non valide\n");
+            printf(GRAS ROUGE"format de couleur entrée non valide\n" RESET);
             i = 1;
         }
         if (i == 0 && color_is_exa(color) == 0){
-            printf("format de couleur entrée non valide\n");
+            printf(GRAS ROUGE"format de couleur entrée non valide\n" RESET);
             i = 1;
         }
     }

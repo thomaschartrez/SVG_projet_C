@@ -10,6 +10,7 @@ SRC = 	src/main.c \
 		src/all_free.c \
 		src/init_node.c \
 		src/modify.c \
+		src/charge_save.c \
 
 OBJS = $(SRC:.c=.o)
 

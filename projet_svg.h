@@ -5,18 +5,37 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define RESET   "\x1b[0m"
+#define ROUGE   "\x1b[31m"
+#define GREEN    "\x1b[32m"
+#define JAUNE   "\x1b[33m"
+#define GRAS    "\x1b[1m"
+
+// typedef struct translate_t{
+//     int x;
+//     int y;
+// } translate_s;
+
+typedef struct transform_t{
+    int rotate;
+    int x;
+    int y;
+} transform_s;
+
 typedef struct point_t{
     int x;
     int y;
 } point_s;
 
 typedef struct line_t{
+    transform_s *transform;
     char *color;
     point_s *a;
     point_s *b;
 } line_s;
 
 typedef struct circle_t{
+    transform_s *transform;
     point_s *a;
     int r;
     char *color_bord;
@@ -39,7 +58,6 @@ typedef union {
 
 
 typedef struct node_t{
-    char *txt_html;
     Forme type;
     Figure *figure;
     struct node_t *next;
@@ -65,5 +83,9 @@ node_s *init_node_line(Forme type ,line_s *line);
 int modify_forme(list_s *list);
 void    add_new_point(point_s *point);
 void clear_stdin(void);
+void    free_circle(circle_s *circle);
+list_s  *get_save(list_s *list);
+void    print_circle(circle_s *circle);
+void    print_line(line_s *line);
 
 #endif

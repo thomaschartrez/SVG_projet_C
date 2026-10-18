@@ -1,14 +1,55 @@
 #include "../projet_svg.h"
 
 
-line_s  *modify_line(line_s *line){
+
+point_s *inversion_point(point_s *point){
+    point->x = -point->x;
+    point->y = -point->y;
+    return (point);
+}
+
+void    inversion_shape(Figure *shape, Forme type){
+    switch (type)
+    {
+    case CIRCLE:
+        shape->circle->a = inversion_point(shape->circle->a);
+        break;
+    case LINE:
+        shape->line->a = inversion_point(shape->line->a);
+        shape->line->b = inversion_point(shape->line->b);
+    default:
+        break;
+    }
+}
+
+line_s *rotate_line(line_s *line){
+    int temp;
+    
+    while(1){
+        temp = 0;
+        printf("enter an interger for the rotation dont use 0 to quit use 360 :)\n");
+        scanf("%d", &temp);
+        clear_stdin();
+        if(temp != 0){
+            line->transform->rotate += temp;
+            return(line);
+        }
+    }
+}
+
+Figure  *modify_line(Figure *line){
     int input_user;
     while (1)
     {
-        printf("select 0 to quit\n");
-        printf("select 1 to modify the first point\n");
-        printf("select 2 to modify the secound\n");
-        printf("select 3 to modify the color\n");
+        system("clear");
+        print_line(line->line);
+        printf(" \n--------------------------------------------------\n");
+        printf("||select 0 to quit                               ||\n");
+        printf("||select 1 to modify the first point             ||\n");
+        printf("||select 2 to modify the secound                 ||\n");
+        printf("||select 3 to modify the color                   ||\n");
+        printf("||select 4 to rotate                             ||\n");
+        printf(" ---------------------------------------------------\n");
         scanf("%d",&input_user);
         clear_stdin();
         switch (input_user)
@@ -17,15 +58,20 @@ line_s  *modify_line(line_s *line){
             return (line);
             break;
         case 1:
-            add_new_point(line->a);
+            add_new_point(line->line->a);
             break;
         case 2:
-            add_new_point(line->b);
+            add_new_point(line->line->b);
             break;
         case 3:
-            free(line->color);
-            line->color = color_init();
+            free(line->line->color);
+            line->line->color = color_init();
             break;
+        case 4:
+            line->line = rotate_line(line->line);
+            break;
+        case 5:
+            
         default:
             printf("invalid input\n");
             break;
@@ -35,38 +81,85 @@ line_s  *modify_line(line_s *line){
 }
 
 
-circle_s  *modify_circle(circle_s *circle){
+circle_s *rotate_circle(circle_s *circle){
+    int temp;
+    
+    while(1){
+        temp = 0;
+        printf("enter an interger for the rotation dont use 0 to quit use 360 :)\n");
+        scanf("%d", &temp);
+        clear_stdin();
+        if(temp != 0){
+            circle->transform->rotate += temp;
+            return(circle);
+        }
+    }
+}
+
+circle_s *translate_circle(circle_s *circle){
+    int x_coordinate = 0;
+    int y_coordinate = 0;
+
+    
+    printf("enter the x-coordinate\n");
+    scanf("%d", &x_coordinate);
+    clear_stdin();
+    circle->transform->x += x_coordinate;
+    printf("enter the y-coordinate\n");
+    scanf("%d", &y_coordinate);
+    circle->transform->y += y_coordinate;
+    clear_stdin();
+    return (circle);
+}
+
+circle_s  *modify_circle(Figure *circle){
     int input_user;
     while (1)
     {
-        printf("select 0 to quit\n");
-        printf("select 1 to modify the center\n");
-        printf("select 2 to modify contour color\n");
-        printf("select 3 to modify the fill colorn");
+        system("clear");
+        print_circle(circle->circle);
+        printf("\n ---------------------------------------------------\n");
+        printf("||select 0 to quit                                ||\n");
+        printf("||select 1 to modify the center                   ||\n");
+        printf("||select 2 to modify contour color                ||\n");
+        printf("||select 3 to modify the fill colorn              ||\n");
+        printf("||select 4 to rotate\n                            ||\n");
+        printf("||select 5 to translate                           ||\n");
+        printf(" ---------------------------------------------------\n");
         scanf("%d",&input_user);
         clear_stdin();
         switch (input_user)
         {
         case 0:
-            return (circle);
+            return (circle->circle);
             break;
         case 1:
-            add_new_point(circle->a);
+            add_new_point(circle->circle->a);
             break;
         case 2:
-                free(circle->color_bord);
-                circle->color_bord = color_init();
+                free(circle->circle->color_bord);
+                circle->circle->color_bord = color_init();
             break;
         case 3:
-                free(circle->color_remplissage);
-                circle->color_remplissage= color_init();
-            break;
+                free(circle->circle->color_remplissage);
+                circle->circle->color_remplissage= color_init();
+                break;
+        case 4:
+                circle->circle = rotate_circle(circle->circle);
+                break;
+        case 5:
+                circle->circle = translate_circle(circle->circle);
+                break;
+        case 6:
+                inversion_shape(circle ,CIRCLE);
+                break;
         default:
             printf("invalid input\n");
             break;
         }
         input_user = 0;
     }
+    return (circle->circle);
 }
 
 list_s *modify_shape_selected(list_s *list, int user_input){
@@ -79,14 +172,39 @@ list_s *modify_shape_selected(list_s *list, int user_input){
     }
     switch (temp->type){
         case LINE:
-            temp->figure->line = modify_line(temp->figure->line);
+            temp->figure = modify_line(temp->figure);
             break;
         case CIRCLE:
-            temp->figure->circle = modify_circle(temp->figure->circle);
+            temp->figure->circle = modify_circle(temp->figure);
             break;    
     }
     return list;
 }
+
+void    print_point(point_s *point){
+    printf(GREEN"-  point a :"RESET"   x : %d   y : %d\n", point->x, point->y);
+}
+
+void    print_color(char    *color){
+    printf(GREEN"-  color   :"RESET"   %s\n", color);
+}
+
+void    print_circle(circle_s *circle){
+    print_point(circle->a);
+    print_color(circle->color_bord);
+    print_color(circle->color_remplissage);
+    printf(GREEN"-  radius  :"RESET "%d\n", circle->r);
+}
+
+void    print_line(line_s *line){
+    printf("\n");
+    print_point(line->a);
+    print_point(line->b);
+    print_color(line->color);
+    printf("\n");
+
+}
+
 
 int modify_forme(list_s *list){
     int count_line;
@@ -95,37 +213,39 @@ int modify_forme(list_s *list){
     unsigned int user_input;
     node_s *temp = list->node;
 
-    if (list->node == NULL){
-        printf("nothing to modify\n");
-        return (0);
-    }
+    if (list->node == NULL)
+        return (1);
     while (1){
+        system("clear");
         count_line = 1;
         count_circle = 1;
         i = 1;
-        printf("to select the element you want please selecte a number (order of creation) between 0 and %d\n", list->length);
+        printf(" ---------------------------------------------------\n");
+        printf("to select the element you want please selecte a number (order of creation) between 0 and %d\n\n", list->length);
         printf("0 to quit\n");
         while (temp){
             switch (temp->type)
             {
                 case LINE:
                     printf("select %d, for line number %d\n", i , count_line);
+                    print_line(temp->figure->line);
                     i++;
                     count_line++;
                 break;
                 case CIRCLE:
                     printf("select %d, for circle numbre %d\n", i, count_circle);
+                    print_circle(temp->figure->circle);
                     i++;
                     count_circle++;
                 break;
             }
-            i++;
             temp = temp->next;
         }
+        printf(" ---------------------------------------------------\n");
         scanf("%d", &user_input);
         clear_stdin();
         if (user_input > list->length +1 && user_input > 0)
-            printf("invalid input");
+            printf(GRAS ROUGE "invalid input\n" RESET);
         else if(user_input == 0)
             return 0;
         else

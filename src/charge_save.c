@@ -1,0 +1,288 @@
+#include "../projet_svg.h"
+
+int   *get_int(FILE *file, int *return_val){
+    char BUFFER[2];
+    int nb;
+    int signe = 1;
+
+    return_val[0] = 0;
+    return_val[1] = 0;
+    if( fgets(BUFFER, 2, file) == NULL){
+        return_val[0] = -1;
+        return return_val;
+    }
+    if (BUFFER[0] == '-')
+    {
+        signe = -1;
+        if( fgets(BUFFER, 2, file) == NULL){
+            return_val[0] = -1;
+            return return_val;
+        }
+        if(BUFFER[0] == ','){
+            return_val[0] = -1;
+            return return_val;
+        }
+        if (BUFFER[0] < '0' || BUFFER[0] > '9'){
+            return_val[0] = -1;
+            return return_val;
+        }
+    }
+    nb = BUFFER[0] - '0';
+    while(1){
+        if( fgets(BUFFER, 2, file) == NULL){
+            return_val[0] = -1;
+            return return_val;
+        }
+        if(BUFFER[0] == ','){
+            return_val[1] = nb * signe;
+            return return_val;
+        }
+        if (BUFFER[0] < '0' || BUFFER[0] > '9'){
+            return_val[0] = -1;
+            return return_val;
+        }
+        nb = nb *10 + (BUFFER[0] - '0');
+    }
+}
+
+char    *get_color(FILE *file){
+    char BUFFER[8];
+
+    if( fgets(BUFFER, 8, file) == NULL)
+        return NULL;
+    if (strlen(BUFFER) != 7)
+        return NULL;
+    for(int i = 0; i < 6;i++){
+        if ((BUFFER[i] < '0' || BUFFER[i] > '9') && (BUFFER[i] < 'a' || BUFFER[i] > 'f') && (BUFFER[i] < 'A' || BUFFER[i] > 'F'))
+            return NULL;
+    }
+    if (BUFFER[6] != ',')
+            return NULL;
+    
+    char *color = malloc(sizeof(char)* 7);
+    for(int i = 0; i < 6;i++){
+        color[i] = BUFFER[i];
+    }
+    color[6] = '\0';
+    return color;
+}
+
+point_s   *get_point(FILE *file){
+    point_s *point = malloc(sizeof(point_s));
+    int *temp = malloc(sizeof(int) * 2);
+
+
+    temp = get_int(file, temp);
+    if(temp[0] < 0){
+        free(temp);
+        free(point);
+        return NULL;
+    }
+    point->x = temp[1];
+    temp = get_int(file, temp);
+    if(temp[0] < 0){
+        free(temp);
+        free(point);
+        return NULL;
+    }
+    point->y = temp[1];
+    return point;
+}
+
+transform_s   *get_translation_rotation(FILE *file){
+    transform_s *transform = malloc(sizeof(transform_s));
+    int *temp = malloc(sizeof(int) * 2);
+
+
+
+    temp = get_int(file, temp);
+    if(temp[0] < 0){
+        free(transform);
+        free(temp);
+        return NULL;
+    }
+    transform->rotate = temp[1];
+    temp = get_int(file, temp);
+    if(temp[0] < 0){
+        free(temp);
+        free(transform);
+        return NULL;
+    }
+    transform->x = temp[1];
+    temp = get_int(file, temp);
+    if(temp[0] < 0){
+        free(temp);
+        free(transform);
+        return NULL;
+    }
+    transform->y = temp[1];
+    free(temp);
+    return transform;
+}
+
+void    go_end_line(FILE *file);
+
+list_s    *read_option_circle(FILE *file,char *option, list_s *new_list){
+    int p = 0;
+    int r = 0;
+    int c = 0;
+    int t = 0;
+    int *temp;
+
+    for (int i = 0; i < 5; i++){
+        if(option[i] == 'p')
+            p++;
+        if(option[i] == 'r')
+            r++;
+        if(option[i] == 'c')
+            c++;
+        if(option[i] == 't')
+            t++;
+    }
+    if(p != 1 || c!= 2 || r != 1 || t != 1){
+        go_end_line(file);
+        return (new_list);
+    }
+    circle_s *circle = malloc(sizeof(circle_s));
+    circle->a = NULL;
+    circle->color_bord = NULL;
+    circle->color_remplissage = NULL;
+    circle->transform = NULL;
+    c = 0;
+    temp = malloc(sizeof(int)* 2);
+    for (int i = 0; i < 5; i++){
+        switch (option[i])
+        {
+        case 'p':
+            circle->a = get_point(file);
+            if (!circle->a){
+                free_circle(circle);
+                return(new_list);
+            }
+            break;
+        case 't':
+            circle->transform = get_translation_rotation(file);
+            if (circle->transform == NULL){
+                free_circle(circle);
+                return(new_list);
+            }
+            break;
+        case 'c':
+            if(c == 0){
+                circle->color_bord = get_color(file);
+                if (!circle->color_bord){
+                    free_circle(circle);
+                    return(new_list);
+                    }
+                    c++;
+                }
+                else{
+                    circle->color_remplissage = get_color(file);
+                if (!circle->color_remplissage){
+                    free_circle(circle);
+                    return(new_list);
+                    }
+                }
+                break;
+        case 'r':
+            temp = get_int(file, temp);
+            if (temp[0] < 0){
+                free_circle(circle);
+                free(temp);
+                return(new_list);
+            }
+            else
+                circle->r = temp[1];
+            break;
+        default:
+            break;
+        }
+    }
+    free(temp);
+    node_s  *node = init_node_circle(CIRCLE, circle);
+    add_node(new_list, node);
+    return new_list;
+}
+
+
+char    *get_option(FILE *file, int size){
+    char    *option;
+
+    option = malloc(sizeof(char) * (size + 2));
+    if (fgets(option, size + 2,file) == NULL){
+        free(option);
+        return (NULL);
+    }
+    if (option[size] != '|'){
+        free(option);
+        return (NULL);
+    }
+    option[size + 1] = '\0';
+    return option;
+}
+
+
+void go_end_line(FILE *file) {
+    char BUFFER[2];
+    BUFFER[0] = ' '; 
+
+    while (BUFFER[0] != '\n') {
+        if (fgets(BUFFER, 2, file) == NULL) {
+            break; 
+        }
+    }
+}
+
+list_s  *read_save(list_s *old_list,FILE *file){
+    list_s *new_list;
+    char    *option;
+    char    BUFFER[3];
+
+    new_list = init_list();
+    while(1){
+        if (fgets(BUFFER,3,file) == NULL)
+        {
+            free_list(old_list);
+            return (new_list);
+        }
+        if(BUFFER[1] != '|')
+            BUFFER[0] = 'a';
+        switch (BUFFER[0])
+        {
+        case 'C':
+            option = get_option(file, 5);
+            if (option == NULL)
+               go_end_line(file);
+            else
+                new_list = read_option_circle(file, option, new_list);
+               go_end_line(file);
+            break;
+        case 'L':
+            printf("wa");
+            go_end_line(file);
+            break;
+        default:
+            go_end_line(file);
+            break;
+        }
+    }
+    free_list(old_list);
+    return new_list;
+}
+
+list_s  *get_save(list_s *list){
+    FILE *file;
+    char way[51];
+
+    printf("enter the way of the save you want to upload");
+    scanf("%50s", way);
+    clear_stdin();
+    file = fopen(way,"r");
+    if (file == NULL){
+        printf("wrong input or not read right");
+        return(list);
+    }
+    list = read_save(list, file);
+    fclose(file);
+    return (list);
+}

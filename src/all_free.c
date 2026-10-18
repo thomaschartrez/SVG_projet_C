@@ -5,13 +5,19 @@ void    free_line(line_s *line){
     free(line->a);
     free(line->b);
     free(line->color);
+    free(line->transform);
     free(line);
 }
 
 void    free_circle(circle_s *circle){
-    free(circle->color_remplissage);
-    free(circle->color_bord);
-    free(circle->a);
+    if (circle->color_remplissage != NULL)
+        free(circle->color_remplissage);
+    if (circle->color_bord != NULL)
+        free(circle->color_bord);
+    if (circle->a != NULL) 
+        free(circle->a);
+    if(circle->transform != NULL)
+        free(circle->transform);
     free(circle);
 }
 
@@ -26,12 +32,12 @@ void    free_node(node_s *node){
         break;
     }
     free(node->figure);
-    free(node->txt_html);
     free(node);
 }
 
 void    free_list(list_s *list){
-    if (list->node != NULL){
+    printf("espoit");
+    if (list != NULL && list->node != NULL){
         node_s *temp;
         node_s *temp2;
         temp = list->node;
@@ -42,5 +48,9 @@ void    free_list(list_s *list){
             temp = temp2;
         }
     }
-    free(list);
+    if (list != NULL)
+    {
+        free(list);
+    }
+    
 }
