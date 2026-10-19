@@ -190,10 +190,12 @@ void    print_color(char    *color){
 }
 
 void    print_circle(circle_s *circle){
+    printf("\n");
     print_point(circle->a);
     print_color(circle->color_bord);
     print_color(circle->color_remplissage);
-    printf(GREEN"-  radius  :"RESET "%d\n", circle->r);
+    printf(GREEN"-  radius  :"RESET  "   %d\n", circle->r);
+    printf("\n");
 }
 
 void    print_line(line_s *line){

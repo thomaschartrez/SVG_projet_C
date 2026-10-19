@@ -58,7 +58,6 @@ char    *get_color(FILE *file){
     }
     if (BUFFER[6] != ',')
             return NULL;
-    
     char *color = malloc(sizeof(char)* 7);
     for(int i = 0; i < 6;i++){
         color[i] = BUFFER[i];
@@ -86,6 +85,7 @@ point_s   *get_point(FILE *file){
         return NULL;
     }
     point->y = temp[1];
+    free(temp);
     return point;
 }
 
@@ -157,6 +157,7 @@ list_s    *read_option_circle(FILE *file,char *option, list_s *new_list){
             circle->a = get_point(file);
             if (!circle->a){
                 free_circle(circle);
+                free(temp);
                 return(new_list);
             }
             break;
@@ -164,6 +165,7 @@ list_s    *read_option_circle(FILE *file,char *option, list_s *new_list){
             circle->transform = get_translation_rotation(file);
             if (circle->transform == NULL){
                 free_circle(circle);
+                free(temp);
                 return(new_list);
             }
             break;
@@ -172,6 +174,7 @@ list_s    *read_option_circle(FILE *file,char *option, list_s *new_list){
                 circle->color_bord = get_color(file);
                 if (!circle->color_bord){
                     free_circle(circle);
+                    free(temp);
                     return(new_list);
                     }
                     c++;
@@ -180,6 +183,7 @@ list_s    *read_option_circle(FILE *file,char *option, list_s *new_list){
                     circle->color_remplissage = get_color(file);
                 if (!circle->color_remplissage){
                     free_circle(circle);
+                    free(temp);
                     return(new_list);
                     }
                 }
@@ -200,6 +204,80 @@ list_s    *read_option_circle(FILE *file,char *option, list_s *new_list){
     }
     free(temp);
     node_s  *node = init_node_circle(CIRCLE, circle);
+    add_node(new_list, node);
+    return new_list;
+}
+
+list_s    *read_option_line(FILE *file,char *option, list_s *new_list){
+    int p = 0;
+    int c = 0;
+    int t = 0;
+    int *temp;
+
+    for (int i = 0; i < 4; i++){
+        if(option[i] == 'p')
+            p++;
+        if(option[i] == 'c')
+            c++;
+        if(option[i] == 't')
+            t++;
+    }
+    if(p != 2 || c!= 1 || t != 1){
+        go_end_line(file);
+        return (new_list);
+    }
+    line_s *line = malloc(sizeof(line_s));
+    line->a = NULL;
+    line->b = NULL;
+    line->color = NULL;
+    line->transform = NULL;
+    p = 0;
+    temp = malloc(sizeof(int)* 2);
+    for (int i = 0; i < 4; i++){
+        switch (option[i])
+        {
+        case 'p':
+            if (p == 0){
+                line->a = get_point(file);
+                if (!line->a){
+                    free(temp);
+                    free_line(line);
+                    return(new_list);
+                }
+                p++;
+            }
+            else{
+                line->b = get_point(file);
+                if (!line->b){
+                    free(temp);
+                    free_line(line);
+                    return(new_list);
+            }
+        }
+            break;
+        case 't':
+            line->transform = get_translation_rotation(file);
+            if (line->transform == NULL){
+                free(temp);
+                free_line(line);
+                return(new_list);
+            }
+            break;
+        case 'c':
+                line->color = get_color(file);
+                if (!line->color){
+                    free(temp);
+                    free_line(line);
+                    return(new_list);
+                    }
+                    c++;
+                break;
+        default:
+            break;
+        }
+    }
+    free(temp);
+    node_s  *node = init_node_line(LINE, line);
     add_node(new_list, node);
     return new_list;
 }
@@ -253,13 +331,21 @@ list_s  *read_save(list_s *old_list,FILE *file){
             option = get_option(file, 5);
             if (option == NULL)
                go_end_line(file);
-            else
+            else{
                 new_list = read_option_circle(file, option, new_list);
-               go_end_line(file);
+                go_end_line(file);
+                free(option);
+            }
             break;
         case 'L':
-            printf("wa");
-            go_end_line(file);
+            option = get_option(file, 4);
+            if (option == NULL)
+                go_end_line(file);
+            else{
+                new_list = read_option_line(file, option, new_list);
+                go_end_line(file);
+                free(option);
+            }
             break;
         default:
             go_end_line(file);
@@ -274,12 +360,13 @@ list_s  *get_save(list_s *list){
     FILE *file;
     char way[51];
 
-    printf("enter the way of the save you want to upload");
+    printf("enter the way of the save you want to upload\n");
     scanf("%50s", way);
     clear_stdin();
     file = fopen(way,"r");
     if (file == NULL){
-        printf("wrong input or not read right");
+        printf(ROUGE GRAS "wrong input or not read right\n" RESET);
+        system("sleep 5");
         return(list);
     }
     list = read_save(list, file);

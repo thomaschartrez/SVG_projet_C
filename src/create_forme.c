@@ -14,7 +14,7 @@ void    add_new_point(point_s *point){
     
 }*/
 
-int add_line(list_s *list){
+void    add_line(list_s *list){
 
     line_s *line;
     node_s *node;
@@ -35,10 +35,38 @@ int add_line(list_s *list){
     add_new_point(line->b);
     node = init_node_line(LINE, line);
     list = add_node(list, node);
-    return 0;
 }
 
-int add_circle(list_s *list){
+
+void    add_ellipse(list_s *list){
+
+    node_s *node;
+    elipse_s *ellipse;
+    
+    system("clear");
+    ellipse = malloc(sizeof(circle_s));
+    printf("remplissge couleur remplissage\n");
+    ellipse->color_remplissage = color_init();
+    printf("remplissge couleur bord\n");
+    ellipse->color_bord = color_init();
+    ellipse->a = malloc(sizeof(point_s));
+    printf("enter center position :\n");
+    add_new_point(ellipse->a);
+    ellipse->transform = malloc(sizeof(transform_s));
+    ellipse->transform->rotate = 0;
+    ellipse->transform->x = 0;
+    ellipse->transform->y = 0;
+    printf("radius 1 :\n");
+    scanf("%d", &ellipse->r1);
+    clear_stdin();
+    printf("radius 2 :\n");
+    scanf("%d", &ellipse->r2);
+    clear_stdin();
+    node = init_node_ellipse(ELLIPSE, ellipse);
+    list = add_node(list, node);
+}
+
+void    add_circle(list_s *list){
 
     node_s *node;
     circle_s *circle;
@@ -61,35 +89,103 @@ int add_circle(list_s *list){
     clear_stdin();
     node = init_node_circle(CIRCLE, circle);
     list = add_node(list, node);
+}
 
-    return 0;
+void    add_rectangle(list_s *list){
+
+    node_s *node;
+    rectangle_s *rectangle;
+    
+    system("clear");
+    rectangle = malloc(sizeof(rectangle_s));
+    printf("remplissge couleur remplissage\n");
+    rectangle->color_remplissage = color_init();
+    printf("remplissge couleur bord\n");
+    rectangle->color_bord = color_init();
+    rectangle->a = malloc(sizeof(point_s));
+    printf("enter the coordiation from the point at the top left\n");
+    add_new_point(rectangle->a);
+    rectangle->width = 0;
+    printf("enter width\n");
+    scanf("%d", &rectangle->width);
+    rectangle->height = 0;
+    clear_stdin();
+    scanf("%d", &rectangle->height);
+    clear_stdin();
+    rectangle->transform = malloc(sizeof(transform_s));
+    rectangle->transform->rotate = 0;
+    rectangle->transform->x = 0;
+    rectangle->transform->y = 0;
+    node = init_node_rectangle(RECTANGLE, rectangle);
+    list = add_node(list, node);
+}
+
+void    add_square(list_s *list){
+
+    node_s *node;
+    rectangle_s *square;
+    
+    system("clear");
+    square = malloc(sizeof(rectangle_s));
+    printf("remplissge couleur remplissage\n");
+    square->color_remplissage = color_init();
+    printf("remplissge couleur bord\n");
+    square->color_bord = color_init();
+    square->a = malloc(sizeof(point_s));
+    printf("enter the coordiation from the point at the top left\n");
+    add_new_point(square->a);
+    square->width = 0;
+    printf("enter width\n");
+    scanf("%d", &square->width);
+    clear_stdin();
+    square->height = square->width;
+    square->transform = malloc(sizeof(transform_s));
+    square->transform->rotate = 0;
+    square->transform->x = 0;
+    square->transform->y = 0;
+    clear_stdin();
+    node = init_node_square(SQUARE, square);
+    list = add_node(list, node);
 }
 
 int    add_new_forme(list_s *list){
     unsigned char i;
 
-    FILE *file = fopen("html/dsoformer.html", "w");
-    fprintf(file, "<svg viewBox=\"0 0 1000 1000\" xmlns=\"http://www.w3.org/2000/svg\">\n");
-    if (file == NULL)
-        return (1);
+
     while(1){
         system("clear");
         printf(" ---------------------------------------------------\n");
-        printf("||       0 : pour quitter                         ||\n");
-        printf("||       1 : pour creer une ligne                 ||\n");
-        printf("||       2 : pour creer une cercle                ||\n");
+        printf("||       0 : to quit                              ||\n");
+        printf("||       1 : to create a line                     ||\n");
+        printf("||       2 : to create a circle                   ||\n");
+        printf("||       3 : to create a square                   ||\n");
+        printf("||       4 : to create a rectangle                ||\n");
+        printf("||       5 : to create an ellipse                 ||\n");
         printf(" ---------------------------------------------------\n");
         scanf("%hhd", &i);
         clear_stdin();
-        if (i == 0)
-            break;
-        if (i == 1)
+        switch (i)
+        {
+        case 0:
+            return 0;
+        case 1:
             add_line(list);
-        if (i == 2)
+            break;
+        case 2:
             add_circle(list);
-        i = 0;
+            break;
+        case 3:
+            add_square(list);
+            break;
+        case 4:
+            add_rectangle(list);
+            break;
+        case 5:
+            add_ellipse(list);
+            break;
+        default:
+            break;
+        }
     }
-    fprintf(file, "</svg>\n");
-    fclose(file);
     return 0;
 }

@@ -18,13 +18,14 @@ int main(void){
         system("clear");
         if (i == 0)
             printf(GREEN"nothing to modify\n"RESET);
-        printf(" ---------------------------------------------------\n");
-        printf(" ||               0 : for quit                    ||\n");
-        printf(" ||               1 : for create                  ||\n");
-        printf(" ||               2 : for modify                  ||\n");
-        printf(" ||               3 : for save                    ||\n");
-        printf(" ||               4 : pour charge et visualiser   ||\n");
-        printf(" ---------------------------------------------------\n");
+        printf("    ---------------------------------------------------\n");
+        printf("    ||               0 : for quit                    ||\n");
+        printf("    ||               1 : for create                  ||\n");
+        printf("    ||               2 : for modify                  ||\n");
+        printf("    ||               3 : for upload                  ||\n");
+        printf("    ||               4 : pour charge et visualiser   ||\n");
+        printf("    ||               5 : save                        ||\n");
+        printf("    ---------------------------------------------------\n");
         scanf("%hhd", &i);
         clear_stdin();
         if (i == 0){
@@ -41,6 +42,8 @@ int main(void){
             list = get_save(list);
         if (i == 4)
             add_to_file(list);     
+        if (i == 5)
+            creat_save(list);
     }
     free_list(list);
     return 0;

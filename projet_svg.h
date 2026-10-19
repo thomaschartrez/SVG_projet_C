@@ -11,10 +11,10 @@
 #define JAUNE   "\x1b[33m"
 #define GRAS    "\x1b[1m"
 
-// typedef struct translate_t{
-//     int x;
-//     int y;
-// } translate_s;
+typedef struct point_t{
+    int x;
+    int y;
+} point_s;
 
 typedef struct transform_t{
     int rotate;
@@ -22,50 +22,62 @@ typedef struct transform_t{
     int y;
 } transform_s;
 
-typedef struct point_t{
-    int x;
-    int y;
-} point_s;
+typedef struct rectangle_t
+{
+    transform_s *transform;
+    point_s *a;
+    char    *color_bord;
+    char    *color_remplissage;
+    int     width;
+    int     height;
+}rectangle_s;
+
+
+typedef struct elipse_t
+{
+    transform_s *transform;
+    point_s     *a;
+    int         r1;
+    int         r2;
+    char        *color_bord;
+    char        *color_remplissage;
+}elipse_s;
+
 
 typedef struct line_t{
     transform_s *transform;
-    char *color;
-    point_s *a;
-    point_s *b;
+    char        *color;
+    point_s     *a;
+    point_s     *b;
 } line_s;
 
 typedef struct circle_t{
     transform_s *transform;
-    point_s *a;
-    int r;
-    char *color_bord;
-    char *color_remplissage;
+    point_s     *a;
+    int         r;
+    char        *color_bord;
+    char        *color_remplissage;
 }circle_s;
 
-typedef struct rectangle_t{
-    int height;
-    int width;
-    point_s *a;
-    point_s *b;
-}rectangle_s;
-
-typedef enum {LINE, CIRCLE} Forme; 
+typedef enum {LINE, CIRCLE, RECTANGLE, SQUARE, ELLIPSE} Forme; 
 
 typedef union {
-    line_s *line;
-    circle_s *circle;
+    line_s      *line;
+    circle_s    *circle;
+    elipse_s    *elipse;
+    rectangle_s *rectangle;
 } Figure;
 
 
 typedef struct node_t{
-    Forme type;
-    Figure *figure;
-    struct node_t *next;
+    Forme           type;
+    Figure          *figure;
+    struct node_t   *next;
 }node_s;
 
 typedef struct list_t{
-    node_s  *node;
-    unsigned int length;
+    node_s          *node;
+    unsigned int    length;
 }list_s;
 
 int    add_new_forme(list_s *list);
@@ -87,5 +99,10 @@ void    free_circle(circle_s *circle);
 list_s  *get_save(list_s *list);
 void    print_circle(circle_s *circle);
 void    print_line(line_s *line);
+void    free_line(line_s *line);
+int creat_save(list_s *list);
+node_s  *init_node_ellipse(Forme type , elipse_s *elipse);
+node_s  *init_node_rectangle(Forme type , rectangle_s *rectangle);
+node_s  *init_node_square(Forme type ,rectangle_s *square);
 
 #endif

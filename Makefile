@@ -11,6 +11,7 @@ SRC = 	src/main.c \
 		src/init_node.c \
 		src/modify.c \
 		src/charge_save.c \
+		src/create_save.c \
 
 OBJS = $(SRC:.c=.o)
 
@@ -19,7 +20,7 @@ NAME = projet
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) 
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@

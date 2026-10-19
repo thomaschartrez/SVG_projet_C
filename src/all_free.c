@@ -2,11 +2,17 @@
 
 
 void    free_line(line_s *line){
-    free(line->a);
-    free(line->b);
-    free(line->color);
-    free(line->transform);
-    free(line);
+
+    if (line->a != NULL)
+        free(line->a);
+    if (line->b != NULL)
+        free(line->b);
+    if (line->color != NULL)
+        free(line->color);
+    if (line->transform != NULL)
+        free(line->transform);
+    if (line != NULL)
+        free(line);
 }
 
 void    free_circle(circle_s *circle){
@@ -18,7 +24,8 @@ void    free_circle(circle_s *circle){
         free(circle->a);
     if(circle->transform != NULL)
         free(circle->transform);
-    free(circle);
+    if (circle != NULL)
+        free(circle);
 }
 
 void    free_node(node_s *node){
