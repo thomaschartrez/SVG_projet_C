@@ -30,10 +30,10 @@ if 2 color the first is bord and the secound filling
 translation and rotation order :     translate x, translate y , rotate
 
 
-C|prcct|int,int,int,char[6], char[6],int,int,int  // format obligatoire pour cercle
-E|
+C|prcct|int,int,int,char[6], char[6],int,int,int,  // format obligatoire pour cercle
+E|prrcct|int,int,int,int,char[6],char[6],int,int,int,
 R|pwhcct|int,int,int,int,char[6],char[6],int,int,int, //format obligatoire rectangle
-L|ppct|int,int,int,int,char[6],int,int,int,; //format obligatoire pour ligne 
+L|ppct|int,int,int,int,char[6],int,int,int, //format obligatoire pour ligne 
 S|pwcct|int,int,char[6],char[6],int,int,int, //format obligatoire carré
 P|pp...cct|int,int,int,int,...,char[6],char[6],int,int,int,
 Q|pp...cct|int,int,int,int,...,char[6],char[6],int,int,int,

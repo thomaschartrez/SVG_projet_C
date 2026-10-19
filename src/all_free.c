@@ -15,6 +15,19 @@ void    free_line(line_s *line){
         free(line);
 }
 
+void    free_ellipse(elipse_s *elipse){
+    if (elipse->color_remplissage != NULL)
+        free(elipse->color_remplissage);
+    if (elipse->color_bord != NULL)
+        free(elipse->color_bord);
+    if (elipse->a != NULL) 
+        free(elipse->a);
+    if(elipse->transform != NULL)
+        free(elipse->transform);
+    if (elipse != NULL)
+        free(elipse);
+}
+
 void    free_circle(circle_s *circle){
     if (circle->color_remplissage != NULL)
         free(circle->color_remplissage);
@@ -36,6 +49,8 @@ void    free_node(node_s *node){
         break;
     case CIRCLE:
         free_circle(node->figure->circle);
+        break;
+    default :
         break;
     }
     free(node->figure);
@@ -59,5 +74,4 @@ void    free_list(list_s *list){
     {
         free(list);
     }
-    
 }

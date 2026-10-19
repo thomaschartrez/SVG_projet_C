@@ -208,6 +208,103 @@ list_s    *read_option_circle(FILE *file,char *option, list_s *new_list){
     return new_list;
 }
 
+list_s    *read_option_ellipse(FILE *file,char *option, list_s *new_list){
+    int p = 0;
+    int c = 0;
+    int r = 0;
+    int t = 0;
+    int *temp;
+
+    for (int i = 0; i < 4; i++){
+        if(option[i] == 'p')
+            p++;
+        if(option[i] == 'c')
+            c++;
+        if(option[i] == 'r')
+            r++;
+        if(option[i] == 't')
+            t++;
+    }
+    if(p != 1 || c!= 2 || t != 1 || r != 2){
+        go_end_line(file);
+        return (new_list);
+    }
+    elipse_s *ellipse = malloc(sizeof(elipse_s));
+    ellipse->a = NULL;
+    ellipse->color_bord = NULL;
+    ellipse->color_remplissage = NULL;
+    ellipse->transform = NULL;
+    c = 0;
+    r = 0;
+    temp = malloc(sizeof(int)* 2);
+    for (int i = 0; i < 4; i++){
+        switch (option[i])
+        {
+        case 'p':
+            ellipse->a = get_point(file);
+            if (!ellipse->a){
+                free(temp);
+                free_ellipse(ellipse);
+                return(new_list);
+                }
+            break;
+        case 't':
+            ellipse->transform = get_translation_rotation(file);
+            if (ellipse->transform == NULL){
+                free(temp);
+                free_ellipse(ellipse);
+                return(new_list);
+            }
+            break;
+        case 'c':
+                if (c == 0){
+                    ellipse->color_bord = get_color(file);
+                    if (!ellipse->color_bord){
+                        free(temp);
+                        free_ellipse(ellipse);
+                        return(new_list);
+                    }
+                    c++;
+                }
+                else{
+                     ellipse->color_remplissage = get_color(file);
+                    if (!ellipse->color_remplissage){
+                        free(temp);
+                        free_ellipse(ellipse);
+                        return(new_list);
+                    }
+                }
+                break;
+        case 'r' :
+                if (r == 0){
+                    temp = get_int(file, temp);
+                    if (temp[0] < 0){
+                        free(temp);
+                        free_ellipse(ellipse);
+                        return(new_list);
+                    }
+                    ellipse->r1 = temp[1];
+                    r++;
+                }
+                else{
+                    temp = get_int(file, temp);
+                    if (temp[0] < 0){
+                        free(temp);
+                        free_ellipse(ellipse);
+                        return(new_list);
+                    }
+                    ellipse->r2 = temp[1];
+                }
+        default:
+            break;
+        }
+    }
+    free(temp);
+    node_s  *node = init_node_ellipse(ELLIPSE, ellipse);
+    add_node(new_list, node);
+    return new_list;
+}
+
 list_s    *read_option_line(FILE *file,char *option, list_s *new_list){
     int p = 0;
     int c = 0;
@@ -343,6 +440,36 @@ list_s  *read_save(list_s *old_list,FILE *file){
                 go_end_line(file);
             else{
                 new_list = read_option_line(file, option, new_list);
+                go_end_line(file);
+                free(option);
+            }
+            break;
+        case 'E':
+            option = get_option(file, 6);
+            if (option == NULL)
+                go_end_line(file);
+            else{
+                new_list = read_option_ellipse(file, option, new_list);
+                go_end_line(file);
+                free(option);
+            }
+            break;
+        case 'R':
+            option = get_option(file, 6);
+            if (option == NULL)
+                go_end_line(file);
+            else{
+                //new_list = read_option_rectangle(file, option, new_list);
+                go_end_line(file);
+                free(option);
+            }
+            break;
+        case 'S':
+            option = get_option(file, 5);
+            if (option == NULL)
+                go_end_line(file);
+            else{
+                //new_list = read_option_square(file, option, new_list);
                 go_end_line(file);
                 free(option);
             }

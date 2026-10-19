@@ -104,5 +104,6 @@ int creat_save(list_s *list);
 node_s  *init_node_ellipse(Forme type , elipse_s *elipse);
 node_s  *init_node_rectangle(Forme type , rectangle_s *rectangle);
 node_s  *init_node_square(Forme type ,rectangle_s *square);
+void    free_ellipse(elipse_s *elipse);
 
 #endif

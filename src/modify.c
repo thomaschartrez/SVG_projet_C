@@ -177,6 +177,9 @@ list_s *modify_shape_selected(list_s *list, int user_input){
         case CIRCLE:
             temp->figure->circle = modify_circle(temp->figure);
             break;    
+        default :
+            break;
+
     }
     return list;
 }
@@ -235,10 +238,13 @@ int modify_forme(list_s *list){
                     count_line++;
                 break;
                 case CIRCLE:
-                    printf("select %d, for circle numbre %d\n", i, count_circle);
+                    printf("select %d, for circle number %d\n", i, count_circle);
                     print_circle(temp->figure->circle);
                     i++;
                     count_circle++;
+                default :
+                break;
+
                 break;
             }
             temp = temp->next;

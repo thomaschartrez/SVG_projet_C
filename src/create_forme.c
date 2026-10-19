@@ -110,6 +110,7 @@ void    add_rectangle(list_s *list){
     scanf("%d", &rectangle->width);
     rectangle->height = 0;
     clear_stdin();
+    printf("enter height\n");
     scanf("%d", &rectangle->height);
     clear_stdin();
     rectangle->transform = malloc(sizeof(transform_s));
@@ -143,7 +144,6 @@ void    add_square(list_s *list){
     square->transform->rotate = 0;
     square->transform->x = 0;
     square->transform->y = 0;
-    clear_stdin();
     node = init_node_square(SQUARE, square);
     list = add_node(list, node);
 }

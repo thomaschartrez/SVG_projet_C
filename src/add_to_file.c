@@ -26,6 +26,8 @@ int add_to_file(list_s *list){
             case CIRCLE:
                 add_circle_to_file(temp->figure->circle, file);
                 break;
+            default :
+                break;
         }
         temp = temp->next;
     }
