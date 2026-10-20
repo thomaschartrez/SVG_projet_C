@@ -1,4 +1,4 @@
-#include "../projet_svg.h"
+#include "../include/projet_svg.h"
 
 int   *get_int(FILE *file, int *return_val){
     char BUFFER[2];

@@ -1,8 +1,9 @@
-#include "../projet_svg.h"
+#include "../include/projet_svg.h"
 
 void    add_line_to_file(line_s *line, FILE *file){
-    fprintf(file, "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" stroke=\"#%s\" stroke-width=\"7\"/>\n"
-        , line->a->x, line->a->y,  line->b->x, line->b->y,line->color);
+    fprintf(file, "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" stroke=\"#%s\" stroke-width=\"7\" transform=\"rotate(%d) translate(%d, %d)\" />\n"
+        , line->a->x, line->a->y,  line->b->x, line->b->y,line->color
+        , line->transform->rotate, line->transform->x, line->transform->y);
 }
 void    add_circle_to_file(circle_s *circle, FILE *file){
         fprintf(file, "<circle cx=\"%d\" cy=\"%d\" r=\"%d\" fill=\"#%s\" stroke=\"#%s\" stroke-width=\"7\" transform=\"rotate(%d) translate(%d, %d)\"/> \n",
@@ -23,7 +24,7 @@ void    add_rectangle_to_file(rectangle_s *rectangle, FILE *file){
 
 int add_to_file(list_s *list){
     node_s *temp;
-    FILE *file = fopen("html/svgformer.html", "w");
+    FILE *file = fopen("html/svgformer.svg", "w");
 
     if (list->node == NULL)
         return 0;

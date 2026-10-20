@@ -1,4 +1,4 @@
-#include "../projet_svg.h"
+#include "../include/projet_svg.h"
 
 void    save_point(point_s *point, FILE *file){
     fprintf(file,"%d,%d,", point->x, point->y);

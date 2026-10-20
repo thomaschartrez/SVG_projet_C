@@ -1,4 +1,4 @@
-#include "../projet_svg.h"
+#include "../include/projet_svg.h"
 
 list_s *init_list(void){
     list_s *list;

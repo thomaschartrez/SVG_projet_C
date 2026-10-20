@@ -1,4 +1,4 @@
-#include "../projet_svg.h"
+#include "../include/projet_svg.h"
 
 void    add_new_point(point_s *point){
     

@@ -1,4 +1,4 @@
-#include "../projet_svg.h"
+#include "../include/projet_svg.h"
 
 
 void clear_stdin(void)
