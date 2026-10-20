@@ -4,7 +4,13 @@ CFLAGS = -Wall -Wextra -Werror -std=c99 -fstack-protector -Iinlcude
 
 SRC = 	src/main.c \
 		src/add_to_file.c \
-		src/create_forme.c \
+		src/create_forme/create_forme.c \
+		src/create_forme/create_point.c \
+		src/create_forme/create_line.c \
+		src/create_forme/create_ellipse.c \
+		src/create_forme/create_circle.c \
+		src/create_forme/create_rectangle.c \
+		src/create_forme/create_square.c \
 		src/color.c \
 		src/chain_list.c \
 		src/all_free.c \

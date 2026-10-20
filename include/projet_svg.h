@@ -18,8 +18,7 @@
 #define JAUNE    "\x1b[33m"
 #define GRAS     "\x1b[1m"
 
-
-
+void    add_line(list_s *list);
 int    add_new_forme(list_s *list);
 char    *color_init(void);
 void    free_list(list_s *list);
@@ -44,5 +43,10 @@ node_s  *init_node_square(Forme type ,rectangle_s *square);
 void    print_square(rectangle_s *square);
 node_s  *init_node_rectangle(Forme type , rectangle_s *rectangle);
 node_s  *init_node_ellipse(Forme type , elipse_s *elipse);
+void    add_line(list_s *list);
+void    add_rectangle(list_s *list);
+void    add_square(list_s *list);
+void    add_circle(list_s *list);
+void    add_ellipse(list_s *list);
 
 #endif

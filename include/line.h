@@ -11,4 +11,6 @@ typedef struct line_t{
     point_s     *b;
 } line_s;
 
+
+
 #endif
