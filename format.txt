@@ -38,3 +38,6 @@ S|pwcct|int,int,char[6],char[6],int,int,int, //format obligatoire carré
 P|pp...cct|int,int,int,int,...,char[6],char[6],int,int,int,
 Q|pp...cct|int,int,int,int,...,char[6],char[6],int,int,int,
 G|n|
+
+
+

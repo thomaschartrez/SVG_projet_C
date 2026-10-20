@@ -28,6 +28,19 @@ void    free_ellipse(elipse_s *elipse){
         free(elipse);
 }
 
+void    free_rectangle(rectangle_s *rectangle){
+    if (rectangle->color_remplissage != NULL)
+        free(rectangle->color_remplissage);
+    if (rectangle->color_bord != NULL)
+        free(rectangle->color_bord);
+    if (rectangle->a != NULL) 
+        free(rectangle->a);
+    if(rectangle->transform != NULL)
+        free(rectangle->transform);
+    if (rectangle != NULL)
+        free(rectangle);
+}
+
 void    free_circle(circle_s *circle){
     if (circle->color_remplissage != NULL)
         free(circle->color_remplissage);
@@ -58,7 +71,6 @@ void    free_node(node_s *node){
 }
 
 void    free_list(list_s *list){
-    printf("espoit");
     if (list != NULL && list->node != NULL){
         node_s *temp;
         node_s *temp2;

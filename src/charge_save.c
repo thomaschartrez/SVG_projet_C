@@ -122,6 +122,189 @@ transform_s   *get_translation_rotation(FILE *file){
 
 void    go_end_line(FILE *file);
 
+list_s    *read_option_rectangle(FILE *file,char *option, list_s *new_list){
+    int p = 0;
+    int w = 0;
+    int h = 0;
+    int c = 0;
+    int t = 0;
+    int *temp;
+
+    for (int i = 0; i < 6; i++){
+        if(option[i] == 'p')
+            p++;
+        if(option[i] == 'w')
+            w++;
+        if(option[i] == 'h')
+            h++;
+        if(option[i] == 'c')
+            c++;
+        if(option[i] == 't')
+            t++;
+    }
+    if(p != 1 || c!= 2 || w != 1 || t != 1 || h != 1){
+        go_end_line(file);
+        return (new_list);
+    }
+    rectangle_s *square = malloc(sizeof(rectangle_s));
+    square->a = NULL;
+    square->color_bord = NULL;
+    square->color_remplissage = NULL;
+    square->transform = NULL;
+    c = 0;
+    temp = malloc(sizeof(int)* 2);
+    for (int i = 0; i < 6; i++){
+        switch (option[i])
+        {
+        case 'p':
+            square->a = get_point(file);
+            if (!square->a){
+                free_rectangle(square);
+                free(temp);
+                return(new_list);
+            }
+            break;
+        case 't':
+            square->transform = get_translation_rotation(file);
+            if (square->transform == NULL){
+                free_rectangle(square);
+                free(temp);
+                return(new_list);
+            }
+            break;
+        case 'c':
+            if(c == 0){
+                square->color_bord = get_color(file);
+                if (!square->color_bord){
+                    free_rectangle(square);
+                    free(temp);
+                    return(new_list);
+                    }
+                    c++;
+                }
+                else{
+                    square->color_remplissage = get_color(file);
+                    if (!square->color_remplissage){
+                        free_rectangle(square);
+                        free(temp);
+                        return(new_list);
+                    }
+                }
+                break;
+        case 'w':
+            temp = get_int(file, temp);
+            if (temp[0] < 0){
+                free_rectangle(square);
+                free(temp);
+                return(new_list);
+            }
+            square->width = temp[1];
+            break;
+        case 'h':
+            temp = get_int(file, temp);
+            if (temp[0] < 0){
+                free_rectangle(square);
+                free(temp);
+                return(new_list);
+            }
+            square->height = temp[1];
+            break;
+        default:
+            break;
+        }
+    }
+    free(temp);
+    node_s  *node = init_node_rectangle(RECTANGLE, square);
+    add_node(new_list, node);
+    return new_list;
+}
+
+list_s    *read_option_square(FILE *file,char *option, list_s *new_list){
+    int p = 0;
+    int w = 0;
+    int c = 0;
+    int t = 0;
+    int *temp;
+
+    for (int i = 0; i < 5; i++){
+        if(option[i] == 'p')
+            p++;
+        if(option[i] == 'w')
+            w++;
+        if(option[i] == 'c')
+            c++;
+        if(option[i] == 't')
+            t++;
+    }
+    if(p != 1 || c!= 2 || w != 1 || t != 1){
+        go_end_line(file);
+        return (new_list);
+    }
+    rectangle_s *square = malloc(sizeof(rectangle_s));
+    square->a = NULL;
+    square->color_bord = NULL;
+    square->color_remplissage = NULL;
+    square->transform = NULL;
+    c = 0;
+    temp = malloc(sizeof(int)* 2);
+    for (int i = 0; i < 5; i++){
+        switch (option[i])
+        {
+        case 'p':
+            square->a = get_point(file);
+            if (!square->a){
+                free_rectangle(square);
+                free(temp);
+                return(new_list);
+            }
+            break;
+        case 't':
+            square->transform = get_translation_rotation(file);
+            if (square->transform == NULL){
+                free_rectangle(square);
+                free(temp);
+                return(new_list);
+            }
+            break;
+        case 'c':
+            if(c == 0){
+                square->color_bord = get_color(file);
+                if (!square->color_bord){
+                    free_rectangle(square);
+                    free(temp);
+                    return(new_list);
+                    }
+                    c++;
+                }
+                else{
+                    square->color_remplissage = get_color(file);
+                    if (!square->color_remplissage){
+                        free_rectangle(square);
+                        free(temp);
+                        return(new_list);
+                    }
+                }
+                break;
+        case 'w':
+            temp = get_int(file, temp);
+            if (temp[0] < 0){
+                free_rectangle(square);
+                free(temp);
+                return(new_list);
+            }
+                square->height = temp[1];
+                square->width = temp[1];
+            break;
+        default:
+            break;
+        }
+    }
+    free(temp);
+    node_s  *node = init_node_square(SQUARE, square);
+    add_node(new_list, node);
+    return new_list;
+}
+
 list_s    *read_option_circle(FILE *file,char *option, list_s *new_list){
     int p = 0;
     int r = 0;
@@ -215,7 +398,7 @@ list_s    *read_option_ellipse(FILE *file,char *option, list_s *new_list){
     int t = 0;
     int *temp;
 
-    for (int i = 0; i < 4; i++){
+    for (int i = 0; i < 6; i++){
         if(option[i] == 'p')
             p++;
         if(option[i] == 'c')
@@ -237,7 +420,7 @@ list_s    *read_option_ellipse(FILE *file,char *option, list_s *new_list){
     c = 0;
     r = 0;
     temp = malloc(sizeof(int)* 2);
-    for (int i = 0; i < 4; i++){
+    for (int i = 0; i < 6; i++){
         switch (option[i])
         {
         case 'p':
@@ -459,7 +642,7 @@ list_s  *read_save(list_s *old_list,FILE *file){
             if (option == NULL)
                 go_end_line(file);
             else{
-                //new_list = read_option_rectangle(file, option, new_list);
+                new_list = read_option_rectangle(file, option, new_list);
                 go_end_line(file);
                 free(option);
             }
@@ -469,7 +652,7 @@ list_s  *read_save(list_s *old_list,FILE *file){
             if (option == NULL)
                 go_end_line(file);
             else{
-                //new_list = read_option_square(file, option, new_list);
+                new_list = read_option_square(file, option, new_list);
                 go_end_line(file);
                 free(option);
             }
