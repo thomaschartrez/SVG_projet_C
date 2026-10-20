@@ -18,6 +18,7 @@
 #define JAUNE    "\x1b[33m"
 #define GRAS     "\x1b[1m"
 
+void    print_rectangle(rectangle_s *rectangle);
 void    add_line(list_s *list);
 int    add_new_forme(list_s *list);
 char    *color_init(void);

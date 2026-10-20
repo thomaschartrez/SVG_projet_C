@@ -1,4 +1,4 @@
-#include "../include/projet_svg.h"
+#include "../../include/projet_svg.h"
 
 void    add_line_to_file(line_s *line, FILE *file){
     fprintf(file, "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" stroke=\"#%s\" stroke-width=\"7\" transform=\"rotate(%d) translate(%d, %d)\" />\n"

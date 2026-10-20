@@ -1,4 +1,4 @@
-#include "../include/projet_svg.h"
+#include "../../include/projet_svg.h"
 
 
 node_s  *init_node_circle(Forme type, circle_s *circle){
