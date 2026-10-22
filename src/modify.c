@@ -26,26 +26,11 @@ void    rotate_shape(transform_s *transform){
         transform->rotate += temp;
 }
 
-// rectangle_s *rotate_square(rectangle_s *square){
-//     int temp;
-    
-//     while(1){
-//         temp = 0;
-//         printf("enter an interger for the rotation dont use 0 to quit use 360 :)\n");
-//         scanf("%d", &temp);
-//         clear_stdin();
-//         if(temp != 0){
-//             square->transform->rotate += temp;
-//             return(square);
-//         }
-//     }
-// }
-
 rectangle_s  *square_inversion(rectangle_s *square){
     int input_user = 0;
 
     printf("\n");
-    printf("||select 0 to quit       ||\n");
+    printf("||select 0 ❌ to quit    ||\n");
     printf("||select 1 for x         ||\n");
     printf("||select 2 for y         ||\n");
     printf("\n");
@@ -77,7 +62,7 @@ rectangle_s  *modify_rectangle(Figure *rectangle){
         system("clear");
         print_square(rectangle->rectangle);
         printf("   -------------------------------------------------\n");
-        printf("||select 0 to quit                                ||\n");
+        printf("||select 0 ❌ to quit                             ||\n");
         printf("||select 1 to modify start point                  ||\n");
         printf("||select 2 to modify strok color                  ||\n");
         printf("||select 3 to modify the fill color               ||\n");
@@ -142,7 +127,7 @@ rectangle_s  *modify_square(Figure *square){
         system("clear");
         print_square(square->rectangle);
         printf("   -------------------------------------------------\n");
-        printf("||select 0 to quit                                ||\n");
+        printf("||select 0 ❌ to quit                             ||\n");
         printf("||select 1 to modify start point                  ||\n");
         printf("||select 2 to modify strok color                  ||\n");
         printf("||select 3 to modify the fill color               ||\n");
@@ -194,26 +179,11 @@ rectangle_s  *modify_square(Figure *square){
     return (square->rectangle);
 }
 
-// line_s *rotate_line(line_s *line){
-//     int temp;
-    
-//     while(1){
-//         temp = 0;
-//         printf("enter an interger for the rotation dont use 0 to quit use 360 :)\n");
-//         scanf("%d", &temp);
-//         clear_stdin();
-//         if(temp != 0){
-//             line->transform->rotate += temp;
-//             return(line);
-//         }
-//     }
-// }
-
 line_s  *line_inversion(line_s *line){
     int input_user = 0;
 
     printf("\n");
-    printf("||select 0 to quit       ||\n");
+    printf("||select 0 ❌ to quit    ||\n");
     printf("||select 1 for x         ||\n");
     printf("||select 2 for y         ||\n");
     printf("\n");
@@ -247,7 +217,7 @@ Figure  *modify_line(Figure *line){
         system("clear");
         print_line(line->line);
         printf(" \n--------------------------------------------------\n");
-        printf("||select 0 to quit                                ||\n");
+        printf("||select 0 ❌ to quit                             ||\n");
         printf("||select 1 to modify the first point              ||\n");
         printf("||select 2 to modify the secound                  ||\n");
         printf("||select 3 to modify the color                    ||\n");
@@ -289,26 +259,11 @@ Figure  *modify_line(Figure *line){
     }
 }
 
-// elipse_s *rotate_elipse(elipse_s *elipse){
-//     int temp;
-    
-//     while(1){
-//         temp = 0;
-//         printf("enter an interger for the rotation dont use 0 to quit use 360 :)\n");
-//         scanf("%d", &temp);
-//         clear_stdin();
-//         if(temp != 0){
-//             elipse->transform->rotate += temp;
-//             return(elipse);
-//         }
-//     }
-// }
-
 elipse_s  *elipse_inversion(elipse_s *elipse){
     int input_user = 0;
 
     printf("\n");
-    printf("||select 0 to quit       ||\n");
+    printf("||select ❌ 0 to quit    ||\n");
     printf("||select 1 for x         ||\n");
     printf("||select 2 for y         ||\n");
     printf("\n");
@@ -340,7 +295,7 @@ elipse_s  *modify_elipse(Figure *elipse){
         system("clear");
         print_ellipse(elipse->elipse);
         printf("   -------------------------------------------------\n");
-        printf("||select 0 to quit                                ||\n");
+        printf("||select 0 ❌ to quit                             ||\n");
         printf("||select 1 to modify the center                   ||\n");
         printf("||select 2 to modify strok color                  ||\n");
         printf("||select 3 to modify the fill color               ||\n");
@@ -398,21 +353,6 @@ elipse_s  *modify_elipse(Figure *elipse){
     return (elipse->elipse);
 }
 
-// circle_s *rotate_circle(circle_s *circle){
-//     int temp;
-    
-//     while(1){
-//         temp = 0;
-//         printf("enter an interger for the rotation dont use 0 to quit use 360 :)\n");
-//         scanf("%d", &temp);
-//         clear_stdin();
-//         if(temp != 0){
-//             circle->transform->rotate += temp;
-//             return(circle);
-//         }
-//     }
-// }
-
 circle_s  *circle_inversion(circle_s *circle){
     int input_user = 0;
 
@@ -451,7 +391,7 @@ circle_s  *modify_circle(Figure *circle){
         system("clear");
         print_circle(circle->circle);
         printf("   -------------------------------------------------\n");
-        printf("||select 0 to quit                                ||\n");
+        printf("||select 0 ❌ to quit                             ||\n");
         printf("||select 1 to modify the center                   ||\n");
         printf("||select 2 to modify strok color                  ||\n");
         printf("||select 3 to modify the fill color               ||\n");
@@ -502,13 +442,47 @@ circle_s  *modify_circle(Figure *circle){
     return (circle->circle);
 }
 
+//change_point_polyline()
+
+void    inversion_polyline(polyline_s *polyline){
+    poly_point_s    *temp = polyline->node;
+
+       int input_user = 0;
+
+    printf("\n");
+    printf("||select 1 for x         ||\n");
+    printf("||select 2 for y         ||\n");
+    printf("\n");
+    scanf("%d",&input_user);
+    clear_stdin();
+    switch (input_user){
+        case 1:
+            while (temp != NULL)
+            {
+                temp->point->x = -temp->point->x;
+                temp = temp->next;
+            }
+            break;
+        case 2:
+            while (temp != NULL)
+            {
+                temp->point->y = -temp->point->y;
+                temp = temp->next;
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+
 polyline_s  *modify_polyline(Figure *polyline){
     int input_user;
     while (1){
         system("clear");
         print_polyline(polyline->polyline);
         printf("   -------------------------------------------------\n");
-        printf("||select 0 to quit                                ||\n");
+        printf("||select 0 ❌ to quit                             ||\n");
         printf("||select 1 to modify strok color                  ||\n");
         if (polyline->polyline->color_fill)
             printf("||select 2 to modify the fill color               ||\n");
@@ -543,7 +517,7 @@ polyline_s  *modify_polyline(Figure *polyline){
                 //inversion_polyline(polyline->polyline);
                 break;
             case 6:
-                //rotate_shape(polyline->polyline->transform);
+                rotate_shape(polyline->polyline->transform);
                 break;
             default:
                 break;
@@ -587,6 +561,15 @@ list_s *modify_shape_selected(list_s *list, int user_input){
     return list;
 }
 
+void    delete_shape(list_s* list){
+    int input_user = 0;
+    printf("enter the number of shape you want to delete\n");
+    scanf("%d", &input_user);
+    clear_stdin();
+    if (input_user > 0 && input_user <= (int)list->length)
+        supp_node(list, input_user - 1);
+}
+
 int modify_forme(list_s *list){
     int count_line;
     int count_circle;
@@ -596,7 +579,7 @@ int modify_forme(list_s *list){
     int count_polyline;
     int count_polygone;
     int i;
-    unsigned int user_input;
+    int user_input;
     node_s *temp = list->node;
 
     if (list->node == NULL)
@@ -613,7 +596,8 @@ int modify_forme(list_s *list){
         i = 1;
         printf(" ---------------------------------------------------\n");
         printf("to select the element you want please selecte a number between 0 and %d\n\n", list->length);
-        printf("0 to quit\n");
+        printf("0  ❌ to quit\n");
+        printf("\n-1 to delete a shape\n\n");
         while (temp){
             switch (temp->type)
             {
@@ -665,10 +649,12 @@ int modify_forme(list_s *list){
         printf(" ---------------------------------------------------\n");
         scanf("%d", &user_input);
         clear_stdin();
-        if (user_input > list->length +1 && user_input > 0)
+        if (user_input > (int)list->length +1 && user_input > 0)
             printf(GRAS ROUGE "invalid input\n" RESET);
         else if(user_input == 0)
             return 0;
+        else if(user_input == -1)
+            delete_shape(list);
         else
             modify_shape_selected(list, user_input);
         temp = list->node;

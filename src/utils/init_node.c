@@ -92,6 +92,13 @@ node_s  *init_node_rectangle(Forme type , rectangle_s *rectangle){
     return node;
 }
 
+/**
+ * @brief Allocates and initializes a new node containing a polyline or polygon figure.
+ * 
+ * @param type The shape type (e.g., POLYLINE or POLYGONE).
+ * @param polyline Pointer to the polyline structure to be stored in the node.
+ * @return node_s* Returns a pointer to the newly allocated node structure.
+ */
 node_s  *init_node_polyline(Forme type , polyline_s *polyline){
     node_s  *node;
 

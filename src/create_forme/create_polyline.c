@@ -1,6 +1,12 @@
 #include "../../include/polyline.h"
 #include "../../include/projet_svg.h"
 
+/**
+ * @brief Creates and adds a new polyline or polygon to the shape list based on user input.
+ * 
+ * @param list Pointer to the list structure where the new shape will be added.
+ * @param type The shape type (e.g., POLYLINE or POLYGONE).
+ */
 void  add_polyline(list_s *list, Forme type){
     polyline_s  *polyline = init_polyline();
     int         nb_point;

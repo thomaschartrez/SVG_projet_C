@@ -46,27 +46,44 @@ list_s *add_node(list_s *list, node_s *node){
     return (list);
 }
 
-list_s *supp_node(list_s *list, int index){
-    int i = 0;
-    node_s *temp_preview;
-    node_s *temp_next;
-    temp_preview = list->node;
-    if (i > 0)
-    {
-           while(i + 1 != index){
-            temp_preview = temp_preview->next;
-            i++;
-        }
+/**
+ * @brief Removes a node at the specified index from the list.
+ * 
+ * @param list Pointer to the list structure from which the node will be removed.
+ * @param index The index of the node to delete.
+ * @return list_s* Returns a pointer to the updated list structure.
+ */
+list_s *supp_node(list_s *list, int index) {
+    if (list == NULL || list->node == NULL) {
+        return list;
     }
-    if (temp_preview->next != NULL)
-        temp_next = temp_preview->next->next;
-    else
-        temp_next = NULL;
-    free_node(temp_preview->next);
-    temp_preview->next = temp_next;
-    return(list);
+    if (index == 0) {
+        node_s *to_delete = list->node;
+        list->node = list->node->next;
+        free_node(to_delete);
+        return list;
+    }
+    node_s *temp_preview = list->node;
+    int i = 0;
+    while (i < index - 1 && temp_preview != NULL) {
+        temp_preview = temp_preview->next;
+        i++;
+    }
+    if (temp_preview == NULL || temp_preview->next == NULL) {
+        return list;
+    }
+    node_s *to_delete = temp_preview->next;
+    temp_preview->next = to_delete->next;
+    free_node(to_delete);
+
+    return list;
 }
 
+/**
+ * @brief Allocates and initializes a new polyline structure.
+ * 
+ * @return polyline_s* Returns a pointer to the newly allocated polyline structure.
+ */
 polyline_s *init_polyline(void){
     polyline_s *list;
 

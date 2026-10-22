@@ -1,6 +1,10 @@
 #include "../../include/projet_svg.h"
 
-
+/**
+ * @brief Frees the memory allocated for a line structure, including its start point, end point, color, and transformation.
+ * 
+ * @param line Pointer to the line structure to be freed.
+ */
 void    free_line(line_s *line){
 
     if (line->a != NULL)
@@ -15,6 +19,11 @@ void    free_line(line_s *line){
         free(line);
 }
 
+/**
+ * @brief Frees the memory allocated for an ellipse structure, including its fill color, border color, center point, and transformation.
+ * 
+ * @param elipse Pointer to the ellipse structure to be freed.
+ */
 void    free_ellipse(elipse_s *elipse){
     if (elipse->color_remplissage != NULL)
         free(elipse->color_remplissage);
@@ -28,6 +37,11 @@ void    free_ellipse(elipse_s *elipse){
         free(elipse);
 }
 
+/**
+ * @brief Frees the memory allocated for a rectangle structure, including its fill color, border color, corner point, and transformation.
+ * 
+ * @param rectangle Pointer to the rectangle structure to be freed.
+ */
 void    free_rectangle(rectangle_s *rectangle){
     if (rectangle->color_remplissage != NULL)
         free(rectangle->color_remplissage);
@@ -41,6 +55,11 @@ void    free_rectangle(rectangle_s *rectangle){
         free(rectangle);
 }
 
+/**
+ * @brief Frees the memory allocated for a circle structure, including its fill color, border color, center point, and transformation.
+ * 
+ * @param circle Pointer to the circle structure to be freed.
+ */
 void    free_circle(circle_s *circle){
     if (circle->color_remplissage != NULL)
         free(circle->color_remplissage);
@@ -54,6 +73,11 @@ void    free_circle(circle_s *circle){
         free(circle);
 }
 
+/**
+ * @brief Frees the memory allocated for a polyline structure, including its colors, transformation, and linked points.
+ * 
+ * @param polyline Pointer to the polyline structure to be freed.
+ */
 void    free_polyline(polyline_s *polyline){
     poly_point_s *temp = polyline->node;
     poly_point_s *temp2;

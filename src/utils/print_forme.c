@@ -1,5 +1,10 @@
 #include "../../include/projet_svg.h"
 
+/**
+ * @brief Prints the transformation details (rotation and translation) if they are non-zero.
+ * 
+ * @param transform Pointer to the transformation structure to print.
+ */
 void    print_transform(transform_s *transform){
     if (transform->rotate != 0)
         printf(GREEN"-  rotation:"RESET"   %d\n", transform->rotate);
@@ -7,14 +12,29 @@ void    print_transform(transform_s *transform){
         printf(GREEN"-  translation:"RESET" x: %d  y: %d\n", transform->x, transform->y);
 }
 
+/**
+ * @brief Prints the coordinates (x and y) of a point structure.
+ * 
+ * @param point Pointer to the point structure to be printed.
+ */
 void    print_point(point_s *point){
     printf(GREEN"-  point   :"RESET"   x : %d   y : %d\n", point->x, point->y);
 }
 
+/**
+ * @brief Prints the color string with terminal formatting.
+ * 
+ * @param color Pointer to the string representing the color to be printed.
+ */
 void    print_color(char    *color){
     printf(GREEN"-  color   :"RESET"   %s\n", color);
 }
 
+/**
+ * @brief Prints the details of a circle structure, including its center point, border color, fill color, radius, and transformations.
+ * 
+ * @param circle Pointer to the circle structure to be printed.
+ */
 void    print_circle(circle_s *circle){
     printf("\n");
     print_point(circle->a);
@@ -25,6 +45,11 @@ void    print_circle(circle_s *circle){
     printf("\n");
 }
 
+/**
+ * @brief Prints the details of a line structure, including its start point, end point, color, and transformations.
+ * 
+ * @param line Pointer to the line structure to be printed.
+ */
 void    print_line(line_s *line){
     printf("\n");
     print_point(line->a);
@@ -34,6 +59,11 @@ void    print_line(line_s *line){
     printf("\n");
 }
 
+/**
+ * @brief Prints the details of an ellipse structure, including its center point, border color, fill color, radii, and transformations.
+ * 
+ * @param elipse Pointer to the ellipse structure to be printed.
+ */
 void    print_ellipse(elipse_s *elipse){
     printf("\n");
     print_point(elipse->a);
@@ -45,6 +75,11 @@ void    print_ellipse(elipse_s *elipse){
     printf("\n");
 }
 
+/**
+ * @brief Prints the details of a square structure, including its point, border color, fill color, width, and transformations.
+ * 
+ * @param square Pointer to the rectangle structure representing the square to be printed.
+ */
 void    print_square(rectangle_s *square){
     printf("\n");
     print_point(square->a);
@@ -55,6 +90,11 @@ void    print_square(rectangle_s *square){
     printf("\n");
 }
 
+/**
+ * @brief Prints the details of a rectangle structure, including its point, border color, fill color, width, height, and transformations.
+ * 
+ * @param rectangle Pointer to the rectangle structure to be printed.
+ */
 void    print_rectangle(rectangle_s *rectangle){
     printf("\n");
     print_point(rectangle->a);
@@ -66,6 +106,11 @@ void    print_rectangle(rectangle_s *rectangle){
     printf("\n");
 }
 
+/**
+ * @brief Prints the details of a polyline structure, including its point count, individual points, colors, and transformations.
+ * 
+ * @param polyline Pointer to the polyline structure to be printed.
+ */
 void    print_polyline(polyline_s *polyline){
     poly_point_s *temp = polyline->node;
 

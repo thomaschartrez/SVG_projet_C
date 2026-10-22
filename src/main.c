@@ -32,13 +32,13 @@ int main(void){
         system("clear");
         if (i == 0)
             printf(GREEN"nothing to modify\n"RESET);
-        printf("    ---------------------------------------------------\n");
-        printf("    ||               0 : to  quit                    ||\n");
-        printf("    ||               1 : to  create                  ||\n");
-        printf("    ||               2 : to  modify                  ||\n");
-        printf("    ||               3 : to  upload  a save          ||\n");
-        printf("    ||               4 : to visualize                ||\n");
-        printf("    ||               5 : creat a new save            ||\n");
+       printf("    ---------------------------------------------------\n");
+        printf("    ||               0 : ❌ Quit                     ||\n");
+        printf("    ||               1 : ➕ Create                   ||\n");
+        printf("    ||               2 : ✏️  Modify                   ||\n");
+        printf("    ||               3 : 📂 Load a save              ||\n");
+        printf("    ||               4 : 👁️  Visualize                ||\n");
+        printf("    ||               5 : 💾 Create a new save        ||\n");
         printf("    ---------------------------------------------------\n");
         scanf("%hhd", &i);
         clear_stdin();
