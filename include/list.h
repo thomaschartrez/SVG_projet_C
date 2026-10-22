@@ -5,14 +5,16 @@
 #include "circle.h"
 #include "ellipse.h"
 #include "line.h"
+#include "polyline.h"
 
-typedef enum {LINE, CIRCLE, RECTANGLE, SQUARE, ELLIPSE} Forme; 
+typedef enum {LINE, CIRCLE, RECTANGLE, SQUARE, ELLIPSE, POLYLINE, POLYGONE} Forme; 
 
 typedef union {
     line_s      *line;
     circle_s    *circle;
     elipse_s    *elipse;
     rectangle_s *rectangle;
+    polyline_s  *polyline;
 } Figure;
 
 

@@ -49,5 +49,9 @@ void    add_rectangle(list_s *list);
 void    add_square(list_s *list);
 void    add_circle(list_s *list);
 void    add_ellipse(list_s *list);
+void  add_polyline(list_s *list, Forme type);
+node_s  *init_node_polyline(Forme type , polyline_s *polyline);
+polyline_s *init_polyline(void);
+void    print_polyline(polyline_s *polyline);
 
 #endif

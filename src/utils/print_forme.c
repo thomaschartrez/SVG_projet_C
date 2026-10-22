@@ -8,7 +8,7 @@ void    print_transform(transform_s *transform){
 }
 
 void    print_point(point_s *point){
-    printf(GREEN"-  point a :"RESET"   x : %d   y : %d\n", point->x, point->y);
+    printf(GREEN"-  point   :"RESET"   x : %d   y : %d\n", point->x, point->y);
 }
 
 void    print_color(char    *color){
@@ -63,5 +63,21 @@ void    print_rectangle(rectangle_s *rectangle){
     printf(GREEN"-  width   :"RESET  "   %d\n", rectangle->width);
     printf(GREEN"-  heigth  :"RESET  "   %d\n", rectangle->width);
     print_transform(rectangle->transform);
+    printf("\n");
+}
+
+void    print_polyline(polyline_s *polyline){
+    poly_point_s *temp = polyline->node;
+
+    printf("\n");
+    printf(GREEN"- number point :"RESET  "   %d\n", polyline->nb_point);
+    while(temp != NULL){
+        print_point(temp->point);
+        temp = temp->next;
+    }
+    print_color(polyline->color);
+    if (polyline->color_fill)
+        print_color(polyline->color_fill);
+    print_transform(polyline->transform);
     printf("\n");
 }

@@ -95,15 +95,15 @@ void    init_save(list_s *list, FILE *file){
 
 int creat_save(list_s *list){
     FILE *file;
-    char way[51];
+    char path[500];
 
     if (list->node == NULL)
         return -1;
-    printf("enter the way of the file\n");
-    scanf("%50s", way);
-    file = fopen(way,"w");
+    printf("enter the path of the file\n");
+    scanf("%50s", path);
+    file = fopen(path,"wc");
     if (file == NULL){
-        printf(ROUGE GRAS "invalid way or wrong right\n" RESET);
+        printf(ROUGE GRAS "invalid path or wrong right\n" RESET);
         system("sleep 5");
         return -1;
     }

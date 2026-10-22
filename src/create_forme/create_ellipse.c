@@ -1,5 +1,15 @@
 #include "../../include/projet_svg.h"
 
+/**
+ * @brief Allocates, initializes, and adds a new ellipse shape to the list.
+ * 
+ * Clears the screen, allocates memory for a new ellipse structure and its components 
+ * (fill color, border color, center point, transformation properties, and two radii), 
+ * prompts the user to enter the necessary values, creates a new node, and adds it 
+ * to the specified list.
+ * 
+ * @param list Pointer to the `list_s` structure where the new ellipse node will be added.
+ */
 void    add_ellipse(list_s *list){
 
     node_s *node;

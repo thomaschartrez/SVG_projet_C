@@ -22,6 +22,32 @@ void    add_rectangle_to_file(rectangle_s *rectangle, FILE *file){
     , rectangle->transform->rotate, rectangle->transform->x, rectangle->transform->y);
 }
 
+void    add_point(point_s *point, FILE *file){
+    fprintf(file, "%d,%d ", point->x, point->y);
+}
+
+void    add_polygone_to_file(polyline_s *polyline, FILE *file){
+    poly_point_s *temp = polyline->node;
+    fprintf(file,"<polygon points=\"");
+    while (temp != NULL){
+        add_point(temp->point, file);
+        temp = temp->next;
+    }
+    fprintf(file, "\" stroke=\"#%s\" stroke-width=\"7\" fill=\"#%s\" transform=\"rotate(%d) translate(%d,%d)\"/>"
+        , polyline->color, polyline->color_fill, polyline->transform->rotate, polyline->transform->x, polyline->transform->y);
+}
+
+void    add_polyline_to_file(polyline_s *polyline, FILE *file){
+    poly_point_s *temp = polyline->node;
+    fprintf(file,"<polyline points=\"");
+    while (temp != NULL){
+        add_point(temp->point, file);
+        temp = temp->next;
+    }
+    fprintf(file, "\" fill=\"none\" stroke=\"#%s\" stroke-width=\"7\" transform=\"rotate(%d) translate(%d,%d)\"/>"
+        , polyline->color, polyline->transform->rotate, polyline->transform->x, polyline->transform->y);
+}
+
 int add_to_file(list_s *list){
     node_s *temp;
     FILE *file = fopen("html/svgformer.svg", "w");
@@ -47,6 +73,12 @@ int add_to_file(list_s *list){
                 break;
            case SQUARE:
                 add_rectangle_to_file(temp->figure->rectangle, file);
+                break;
+            case POLYLINE :
+                add_polyline_to_file(temp->figure->polyline, file);
+                break;
+            case POLYGONE :
+                add_polygone_to_file(temp->figure->polyline, file);
                 break;
             default :
                 break;

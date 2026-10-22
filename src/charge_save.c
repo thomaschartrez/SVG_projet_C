@@ -670,7 +670,7 @@ list_s  *get_save(list_s *list){
     FILE *file;
     char way[51];
 
-    printf("enter the way of the save you want to upload\n");
+    printf("enter the path of the save you want to upload\n");
     scanf("%50s", way);
     clear_stdin();
     file = fopen(way,"r");

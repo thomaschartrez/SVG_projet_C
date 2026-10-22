@@ -1,6 +1,6 @@
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -std=c99 -fstack-protector -Iinlcude
+CFLAGS = -Wall -Wextra -Werror -std=c99 -fstack-protector -Iinclude
 
 SRC = 	src/main.c \
 		src/utils/add_to_file.c \
@@ -11,6 +11,7 @@ SRC = 	src/main.c \
 		src/create_forme/create_circle.c \
 		src/create_forme/create_rectangle.c \
 		src/create_forme/create_square.c \
+		src/create_forme/create_polyline.c \
 		src/utils/color.c \
 		src/utils/print_forme.c \
 		src/utils/chain_list.c \
@@ -20,24 +21,28 @@ SRC = 	src/main.c \
 		src/charge_save.c \
 		src/create_save.c \
 
-OBJS = $(SRC:.c=.o)
+OBJ_DIR = bin
+
+OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
 
 NAME = projet
 
-all: $(NAME)
+vpath %.c src src/utils src/create_forme
 
-$(NAME): $(OBJS)
+build: $(NAME)
+
+$(NAME): $(OBJ_DIR) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) 
 
-%.o: %.c
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
+
+$(OBJ_DIR)/%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJS)
-
-fclean: clean
+	rm -rf $(OBJ_DIR)
 	rm -f $(NAME)
 
-re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: build clean

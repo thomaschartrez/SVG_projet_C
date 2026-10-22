@@ -13,6 +13,8 @@ int    add_new_forme(list_s *list){
         printf("||       3 : to create a square                   ||\n");
         printf("||       4 : to create a rectangle                ||\n");
         printf("||       5 : to create an ellipse                 ||\n");
+        printf("||       6 : to create a polyline                 ||\n");
+        printf("||       7 : to create a polygone                 ||\n");
         printf(" ---------------------------------------------------\n");
         scanf("%hhd", &i);
         clear_stdin();
@@ -34,6 +36,12 @@ int    add_new_forme(list_s *list){
             break;
         case 5:
             add_ellipse(list);
+            break;
+        case 6:
+            add_polyline(list, POLYLINE);
+            break;
+        case 7:
+            add_polyline(list, POLYGONE);
             break;
         default:
             break;

@@ -1,22 +1,6 @@
 #include "../include/projet_svg.h"
 
-
-rectangle_s *rotate_square(rectangle_s *square){
-    int temp;
-    
-    while(1){
-        temp = 0;
-        printf("enter an interger for the rotation dont use 0 to quit use 360 :)\n");
-        scanf("%d", &temp);
-        clear_stdin();
-        if(temp != 0){
-            square->transform->rotate += temp;
-            return(square);
-        }
-    }
-}
-
-rectangle_s *translate_square(rectangle_s *square){
+void    translate_shape(transform_s *transform){
     int x_coordinate = 0;
     int y_coordinate = 0;
 
@@ -24,13 +8,38 @@ rectangle_s *translate_square(rectangle_s *square){
     printf("enter the x-coordinate\n");
     scanf("%d", &x_coordinate);
     clear_stdin();
-    square->transform->x = square->transform->x + x_coordinate;
+    transform->x = transform->x + x_coordinate;
     printf("enter the y-coordinate\n");
     scanf("%d", &y_coordinate);
-    square->transform->y = square->transform->y + y_coordinate;
+    transform->y = transform->y + y_coordinate;
     clear_stdin();
-    return (square);
 }
+
+void    rotate_shape(transform_s *transform){
+    int temp;
+    
+    temp = 0;
+    printf("enter an interger for the rotation dont use 0 to quit use 360 :)\n");
+    scanf("%d", &temp);
+    clear_stdin();
+    if(temp != 0)
+        transform->rotate += temp;
+}
+
+// rectangle_s *rotate_square(rectangle_s *square){
+//     int temp;
+    
+//     while(1){
+//         temp = 0;
+//         printf("enter an interger for the rotation dont use 0 to quit use 360 :)\n");
+//         scanf("%d", &temp);
+//         clear_stdin();
+//         if(temp != 0){
+//             square->transform->rotate += temp;
+//             return(square);
+//         }
+//     }
+// }
 
 rectangle_s  *square_inversion(rectangle_s *square){
     int input_user = 0;
@@ -97,10 +106,10 @@ rectangle_s  *modify_rectangle(Figure *rectangle){
             rectangle->rectangle->color_remplissage= color_init();
             break;
         case 4:
-                rectangle->rectangle = rotate_square(rectangle->rectangle);
+                rotate_shape(rectangle->rectangle->transform);
                 break;
         case 5:
-                rectangle->rectangle = translate_square(rectangle->rectangle);
+                translate_shape(rectangle->rectangle->transform);
                 break;
         case 6:
                 square_inversion(rectangle->rectangle);
@@ -161,10 +170,10 @@ rectangle_s  *modify_square(Figure *square){
             square->rectangle->color_remplissage= color_init();
             break;
         case 4:
-            square->rectangle = rotate_square(square->rectangle);
+            rotate_shape(square->rectangle->transform);
             break;
         case 5:
-                square->rectangle = translate_square(square->rectangle);
+                translate_shape(square->rectangle->transform);
                 break;
         case 6:
                 square_inversion(square->rectangle);
@@ -185,20 +194,20 @@ rectangle_s  *modify_square(Figure *square){
     return (square->rectangle);
 }
 
-line_s *rotate_line(line_s *line){
-    int temp;
+// line_s *rotate_line(line_s *line){
+//     int temp;
     
-    while(1){
-        temp = 0;
-        printf("enter an interger for the rotation dont use 0 to quit use 360 :)\n");
-        scanf("%d", &temp);
-        clear_stdin();
-        if(temp != 0){
-            line->transform->rotate += temp;
-            return(line);
-        }
-    }
-}
+//     while(1){
+//         temp = 0;
+//         printf("enter an interger for the rotation dont use 0 to quit use 360 :)\n");
+//         scanf("%d", &temp);
+//         clear_stdin();
+//         if(temp != 0){
+//             line->transform->rotate += temp;
+//             return(line);
+//         }
+//     }
+// }
 
 line_s  *line_inversion(line_s *line){
     int input_user = 0;
@@ -244,6 +253,7 @@ Figure  *modify_line(Figure *line){
         printf("||select 3 to modify the color                    ||\n");
         printf("||select 4 to rotate                              ||\n");
         printf("||select 5 for inversion x or y                   ||\n");
+        printf("||select 6 to translate                           ||\n");
         printf(" ---------------------------------------------------\n");
         scanf("%d",&input_user);
         clear_stdin();
@@ -263,10 +273,13 @@ Figure  *modify_line(Figure *line){
             line->line->color = color_init();
             break;
         case 4:
-            line->line = rotate_line(line->line);
+            rotate_shape(line->line->transform);
             break;
         case 5:
             line->line = line_inversion(line->line);
+            break;
+        case 6:
+            translate_shape(line->line->transform);
             break;
         default:
             printf("invalid input\n");
@@ -276,36 +289,20 @@ Figure  *modify_line(Figure *line){
     }
 }
 
-elipse_s *rotate_elipse(elipse_s *elipse){
-    int temp;
+// elipse_s *rotate_elipse(elipse_s *elipse){
+//     int temp;
     
-    while(1){
-        temp = 0;
-        printf("enter an interger for the rotation dont use 0 to quit use 360 :)\n");
-        scanf("%d", &temp);
-        clear_stdin();
-        if(temp != 0){
-            elipse->transform->rotate += temp;
-            return(elipse);
-        }
-    }
-}
-
-elipse_s *translate_elipse(elipse_s *elipse){
-    int x_coordinate = 0;
-    int y_coordinate = 0;
-
-    
-    printf("enter the x-coordinate\n");
-    scanf("%d", &x_coordinate);
-    clear_stdin();
-    elipse->transform->x += x_coordinate;
-    printf("enter the y-coordinate\n");
-    scanf("%d", &y_coordinate);
-    elipse->transform->y += y_coordinate;
-    clear_stdin();
-    return (elipse);
-}
+//     while(1){
+//         temp = 0;
+//         printf("enter an interger for the rotation dont use 0 to quit use 360 :)\n");
+//         scanf("%d", &temp);
+//         clear_stdin();
+//         if(temp != 0){
+//             elipse->transform->rotate += temp;
+//             return(elipse);
+//         }
+//     }
+// }
 
 elipse_s  *elipse_inversion(elipse_s *elipse){
     int input_user = 0;
@@ -346,7 +343,7 @@ elipse_s  *modify_elipse(Figure *elipse){
         printf("||select 0 to quit                                ||\n");
         printf("||select 1 to modify the center                   ||\n");
         printf("||select 2 to modify strok color                  ||\n");
-        printf("||select 3 to modify the fill colorn              ||\n");
+        printf("||select 3 to modify the fill color               ||\n");
         printf("||select 4 to rotate                              ||\n");
         printf("||select 5 to translate                           ||\n");
         printf("||select 6 for inversion x or y                   ||\n");
@@ -372,10 +369,10 @@ elipse_s  *modify_elipse(Figure *elipse){
                 elipse->elipse->color_remplissage= color_init();
                 break;
         case 4:
-                elipse->elipse = rotate_elipse(elipse->elipse);
+                rotate_shape(elipse->elipse->transform);
                 break;
         case 5:
-                elipse->elipse = translate_elipse(elipse->elipse);
+                translate_shape(elipse->elipse->transform);
                 break;
         case 6:
                 elipse_inversion(elipse->elipse);
@@ -401,36 +398,20 @@ elipse_s  *modify_elipse(Figure *elipse){
     return (elipse->elipse);
 }
 
-circle_s *rotate_circle(circle_s *circle){
-    int temp;
+// circle_s *rotate_circle(circle_s *circle){
+//     int temp;
     
-    while(1){
-        temp = 0;
-        printf("enter an interger for the rotation dont use 0 to quit use 360 :)\n");
-        scanf("%d", &temp);
-        clear_stdin();
-        if(temp != 0){
-            circle->transform->rotate += temp;
-            return(circle);
-        }
-    }
-}
-
-circle_s *translate_circle(circle_s *circle){
-    int x_coordinate = 0;
-    int y_coordinate = 0;
-
-    
-    printf("enter the x-coordinate\n");
-    scanf("%d", &x_coordinate);
-    clear_stdin();
-    circle->transform->x += x_coordinate;
-    printf("enter the y-coordinate\n");
-    scanf("%d", &y_coordinate);
-    circle->transform->y += y_coordinate;
-    clear_stdin();
-    return (circle);
-}
+//     while(1){
+//         temp = 0;
+//         printf("enter an interger for the rotation dont use 0 to quit use 360 :)\n");
+//         scanf("%d", &temp);
+//         clear_stdin();
+//         if(temp != 0){
+//             circle->transform->rotate += temp;
+//             return(circle);
+//         }
+//     }
+// }
 
 circle_s  *circle_inversion(circle_s *circle){
     int input_user = 0;
@@ -461,6 +442,8 @@ circle_s  *circle_inversion(circle_s *circle){
     return circle;
 }
 
+
+
 circle_s  *modify_circle(Figure *circle){
     int input_user;
     while (1)
@@ -471,7 +454,7 @@ circle_s  *modify_circle(Figure *circle){
         printf("||select 0 to quit                                ||\n");
         printf("||select 1 to modify the center                   ||\n");
         printf("||select 2 to modify strok color                  ||\n");
-        printf("||select 3 to modify the fill colorn              ||\n");
+        printf("||select 3 to modify the fill color               ||\n");
         printf("||select 4 to rotate                              ||\n");
         printf("||select 5 to translate                           ||\n");
         printf("||select 6 for inversion x or y                   ||\n");
@@ -496,10 +479,10 @@ circle_s  *modify_circle(Figure *circle){
                 circle->circle->color_remplissage= color_init();
                 break;
         case 4:
-                circle->circle = rotate_circle(circle->circle);
+                rotate_shape(circle->circle->transform);
                 break;
         case 5:
-                circle->circle = translate_circle(circle->circle);
+                translate_shape(circle->circle->transform);
                 break;
         case 6:
                 circle_inversion(circle->circle);
@@ -517,6 +500,55 @@ circle_s  *modify_circle(Figure *circle){
         input_user = 0;
     }
     return (circle->circle);
+}
+
+polyline_s  *modify_polyline(Figure *polyline){
+    int input_user;
+    while (1){
+        system("clear");
+        print_polyline(polyline->polyline);
+        printf("   -------------------------------------------------\n");
+        printf("||select 0 to quit                                ||\n");
+        printf("||select 1 to modify strok color                  ||\n");
+        if (polyline->polyline->color_fill)
+            printf("||select 2 to modify the fill color               ||\n");
+        printf("||select 3 to modify a point                      ||\n");
+        printf("||select 4 to translate                           ||\n");
+        printf("||select 5 for inversion x or y                   ||\n");
+        printf("||select 6 to rotate                              ||\n");
+        printf(" ---------------------------------------------------\n");
+        scanf("%d",&input_user);
+        clear_stdin();
+        switch (input_user){
+            case 0:
+                return (polyline->polyline);
+                break;
+            case 1:
+                free(polyline->polyline->color);                
+                polyline->polyline->color = color_init();
+                break;
+            case 2:
+                if (polyline->polyline->color_fill){
+                    free(polyline->polyline->color_fill);
+                    polyline->polyline->color_fill = color_init();
+                }
+                break;
+            case 3:
+                //change_point_polyline();
+                break;
+            case 4:
+                translate_shape(polyline->polyline->transform);
+                break;
+            case 5:
+                //inversion_polyline(polyline->polyline);
+                break;
+            case 6:
+                //rotate_shape(polyline->polyline->transform);
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 list_s *modify_shape_selected(list_s *list, int user_input){
@@ -543,6 +575,12 @@ list_s *modify_shape_selected(list_s *list, int user_input){
         case ELLIPSE:
             temp->figure->elipse = modify_elipse(temp->figure);
             break;
+        case POLYLINE:
+            temp->figure->polyline = modify_polyline(temp->figure);
+            break;
+        case POLYGONE:
+            temp->figure->polyline = modify_polyline(temp->figure);
+            break;
         default :
             break;
     }
@@ -555,6 +593,8 @@ int modify_forme(list_s *list){
     int count_ellipse;
     int count_rectangle;
     int count_square;
+    int count_polyline;
+    int count_polygone;
     int i;
     unsigned int user_input;
     node_s *temp = list->node;
@@ -568,46 +608,57 @@ int modify_forme(list_s *list){
         count_square = 1;
         count_rectangle = 1;
         count_ellipse = 1;
+        count_polygone = 1;
+        count_polyline = 1;
         i = 1;
         printf(" ---------------------------------------------------\n");
-        printf("to select the element you want please selecte a number (order of creation) between 0 and %d\n\n", list->length);
+        printf("to select the element you want please selecte a number between 0 and %d\n\n", list->length);
         printf("0 to quit\n");
         while (temp){
             switch (temp->type)
             {
                 case LINE:
-                    printf("select %d, for line number %d\n", i , count_line);
+                    printf("select %d, to line number %d\n", i , count_line);
                     print_line(temp->figure->line);
                     i++;
                     count_line++;
                 break;
                 case CIRCLE:
-                    printf("select %d, for circle number %d\n", i, count_circle);
+                    printf("select %d, to circle number %d\n", i, count_circle);
                     print_circle(temp->figure->circle);
                     i++;
                     count_circle++;
                 break;
                 case ELLIPSE:
-                    printf("select %d, for ellipse number %d\n", i, count_circle);
+                    printf("select %d, to ellipse number %d\n", i, count_ellipse);
                     print_ellipse(temp->figure->elipse);
                     i++;
                     count_ellipse++;
                 break;
                 case RECTANGLE:
-                    printf("select %d, for rectangle number %d\n", i, count_circle);
+                    printf("select %d, to rectangle number %d\n", i, count_rectangle);
                     print_rectangle(temp->figure->rectangle);
                     i++;
                     count_rectangle++;
                 break;
                 case SQUARE:
-                    printf("select %d, for square number %d\n", i, count_circle);
+                    printf("select %d, to square number %d\n", i, count_square);
                     print_square(temp->figure->rectangle);
                     i++;
                     count_square++;
                 break;
+                case POLYLINE:
+                    printf("select %d, to square number %d\n", i, count_polyline);
+                    print_polyline(temp->figure->polyline);
+                    count_polyline++;
+                    break;
+                case POLYGONE:
+                    printf("select %d, to square number %d\n", i, count_polygone);
+                    print_polyline(temp->figure->polyline);
+                    count_polygone++;
+                    break;
                 default :
                     break;
-
             }
             temp = temp->next;
         }

@@ -54,6 +54,35 @@ void    free_circle(circle_s *circle){
         free(circle);
 }
 
+void    free_polyline(polyline_s *polyline){
+    poly_point_s *temp = polyline->node;
+    poly_point_s *temp2;
+
+    if (polyline->color != NULL)
+        free(polyline->color);
+    if (polyline->color_fill != NULL)
+        free(polyline->color_fill);
+    if (polyline->transform != NULL)
+        free(polyline->transform);
+    while (temp != NULL)
+    {
+        temp2= temp->next;
+        free(temp->point);
+        free(temp);
+        temp = temp2;
+    }
+    free(polyline);
+}
+
+/**
+ * @brief Frees a node and its associated figure data.
+ * 
+ * Inspects the node's type using a switch statement, deallocates the specific 
+ * figure data (such as a line or circle) using the appropriate helper function, 
+ * and then frees both the figure container and the node itself.
+ * 
+ * @param node Pointer to the `node_s` structure to be freed.
+ */
 void    free_node(node_s *node){
     switch (node->type)
     {
@@ -63,6 +92,18 @@ void    free_node(node_s *node){
     case CIRCLE:
         free_circle(node->figure->circle);
         break;
+    case SQUARE :
+        free_rectangle(node->figure->rectangle);
+        break;
+    case RECTANGLE:
+        free_rectangle(node->figure->rectangle);
+        break;
+    case POLYGONE:
+        free_polyline(node->figure->polyline);
+        break;
+    case POLYLINE:
+        free_polyline(node->figure->polyline);
+        break;
     default :
         break;
     }
@@ -70,6 +111,16 @@ void    free_node(node_s *node){
     free(node);
 }
 
+/**
+ * @brief Frees a linked list and all of its nodes.
+ * 
+ * Safely deallocates all memory associated with the given list structure, 
+ * including iterating through and freeing each individual node using `free_node`, 
+ * and finally freeing the list container itself.
+ * 
+ * @param list Pointer to the `list_s` structure to be freed. If the pointer 
+ *        is NULL, the function does nothing.
+ */
 void    free_list(list_s *list){
     if (list != NULL && list->node != NULL){
         node_s *temp;
@@ -83,7 +134,5 @@ void    free_list(list_s *list){
         }
     }
     if (list != NULL)
-    {
         free(list);
-    }
 }

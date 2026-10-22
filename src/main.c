@@ -1,6 +1,13 @@
 #include "../include/projet_svg.h"
 
-
+/**
+ * @brief Clears the standard input stream (stdin).
+ * 
+ * Consumes and discards all remaining characters in the input buffer until 
+ * a newline character ('\n') or end-of-file (EOF) is reached. This is typically 
+ * used after inputs like scanf to prevent leftover characters from interfering 
+ * with subsequent reads.
+ */
 void clear_stdin(void)
 {
     char c = 'a';
@@ -9,6 +16,13 @@ void clear_stdin(void)
         c = getc(stdin);
 }
 
+/**
+ * @brief Main entry point of the application.
+ * 
+ * Initializes a shape management linked list and runs an interactive console menu 
+ * allowing the user to create, modify, upload, visualize, save, and exit the program.
+ * 
+ */
 int main(void){
     unsigned char i = 1;
     list_s *list;
@@ -19,12 +33,12 @@ int main(void){
         if (i == 0)
             printf(GREEN"nothing to modify\n"RESET);
         printf("    ---------------------------------------------------\n");
-        printf("    ||               0 : for quit                    ||\n");
-        printf("    ||               1 : for create                  ||\n");
-        printf("    ||               2 : for modify                  ||\n");
-        printf("    ||               3 : for upload                  ||\n");
-        printf("    ||               4 : pour charge et visualiser   ||\n");
-        printf("    ||               5 : save                        ||\n");
+        printf("    ||               0 : to  quit                    ||\n");
+        printf("    ||               1 : to  create                  ||\n");
+        printf("    ||               2 : to  modify                  ||\n");
+        printf("    ||               3 : to  upload  a save          ||\n");
+        printf("    ||               4 : to visualize                ||\n");
+        printf("    ||               5 : creat a new save            ||\n");
         printf("    ---------------------------------------------------\n");
         scanf("%hhd", &i);
         clear_stdin();
