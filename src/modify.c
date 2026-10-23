@@ -1,5 +1,10 @@
 #include "../include/projet_svg.h"
 
+/**
+ * @brief Prompts the user for X and Y coordinate offsets and updates the transformation attributes.
+ * 
+ * @param transform Pointer to the `transform_s` structure to be translated.
+ */
 void    translate_shape(transform_s *transform){
     int x_coordinate = 0;
     int y_coordinate = 0;
@@ -15,6 +20,11 @@ void    translate_shape(transform_s *transform){
     clear_stdin();
 }
 
+/**
+ * @brief Prompts the user for a rotation angle and adds it to the existing transformation rotation.
+ * 
+ * @param transform Pointer to the `transform_s` structure to be rotated.
+ */
 void    rotate_shape(transform_s *transform){
     int temp;
     
@@ -26,6 +36,12 @@ void    rotate_shape(transform_s *transform){
         transform->rotate += temp;
 }
 
+/**
+ * @brief Inverts a square's coordinates along the X or Y axis based on user selection.
+ * 
+ * @param square Pointer to the `rectangle_s` structure representing the square.
+ * @return rectangle_s* Pointer to the modified square.
+ */
 rectangle_s  *square_inversion(rectangle_s *square){
     int input_user = 0;
 
@@ -55,6 +71,15 @@ rectangle_s  *square_inversion(rectangle_s *square){
     return square;
 }
 
+/**
+ * @brief Displays an interactive menu to modify properties of a rectangle.
+ * 
+ * Allows modifying the start point, stroke color, fill color, rotation, translation, 
+ * inversion, width, and height.
+ * 
+ * @param rectangle Pointer to the `Figure` union/structure containing the rectangle.
+ * @return rectangle_s* Pointer to the modified rectangle structure.
+ */
 rectangle_s  *modify_rectangle(Figure *rectangle){
     int input_user;
     while (1)
@@ -120,6 +145,15 @@ rectangle_s  *modify_rectangle(Figure *rectangle){
     return (rectangle->rectangle);
 }
 
+/**
+ * @brief Displays an interactive menu to modify properties of a square.
+ * 
+ * Allows modifying the start point, stroke color, fill color, rotation, translation, 
+ * inversion, and width (which dynamically updates the height).
+ * 
+ * @param square Pointer to the `Figure` union/structure containing the square.
+ * @return rectangle_s* Pointer to the modified square structure.
+ */
 rectangle_s  *modify_square(Figure *square){
     int input_user;
     while (1)
@@ -179,6 +213,12 @@ rectangle_s  *modify_square(Figure *square){
     return (square->rectangle);
 }
 
+/**
+ * @brief Inverts a line's start and end points along the X or Y axis based on user selection.
+ * 
+ * @param line Pointer to the `line_s` structure representing the line.
+ * @return line_s* Pointer to the modified line.
+ */
 line_s  *line_inversion(line_s *line){
     int input_user = 0;
 
@@ -210,6 +250,14 @@ line_s  *line_inversion(line_s *line){
     return line;
 }
 
+/**
+ * @brief Displays an interactive menu to modify properties of a line.
+ * 
+ * Allows modifying the first point, second point, color, rotation, inversion, and translation.
+ * 
+ * @param line Pointer to the `Figure` union/structure containing the line.
+ * @return Figure* Pointer to the modified figure.
+ */
 Figure  *modify_line(Figure *line){
     int input_user = 0;
     while (1)
@@ -259,6 +307,12 @@ Figure  *modify_line(Figure *line){
     }
 }
 
+/**
+ * @brief Inverts an ellipse's anchor point along the X or Y axis based on user selection.
+ * 
+ * @param elipse Pointer to the `elipse_s` structure representing the ellipse.
+ * @return elipse_s* Pointer to the modified ellipse.
+ */
 elipse_s  *elipse_inversion(elipse_s *elipse){
     int input_user = 0;
 
@@ -288,6 +342,15 @@ elipse_s  *elipse_inversion(elipse_s *elipse){
     return elipse;
 }
 
+/**
+ * @brief Displays an interactive menu to modify properties of an ellipse.
+ * 
+ * Allows modifying the center point, stroke color, fill color, rotation, translation, 
+ * inversion, and radii.
+ * 
+ * @param elipse Pointer to the `Figure` union/structure containing the ellipse.
+ * @return elipse_s* Pointer to the modified ellipse structure.
+ */
 elipse_s  *modify_elipse(Figure *elipse){
     int input_user;
     while (1)
@@ -353,6 +416,12 @@ elipse_s  *modify_elipse(Figure *elipse){
     return (elipse->elipse);
 }
 
+/**
+ * @brief Inverts a circle's center point along the X or Y axis based on user selection.
+ * 
+ * @param circle Pointer to the `circle_s` structure representing the circle.
+ * @return circle_s* Pointer to the modified circle.
+ */
 circle_s  *circle_inversion(circle_s *circle){
     int input_user = 0;
 
@@ -383,7 +452,15 @@ circle_s  *circle_inversion(circle_s *circle){
 }
 
 
-
+/**
+ * @brief Displays an interactive menu to modify properties of a circle.
+ * 
+ * Allows modifying the center point, stroke color, fill color, rotation, translation, 
+ * inversion, and radius.
+ * 
+ * @param circle Pointer to the `Figure` union/structure containing the circle.
+ * @return circle_s* Pointer to the modified circle structure.
+ */
 circle_s  *modify_circle(Figure *circle){
     int input_user;
     while (1)
@@ -442,8 +519,11 @@ circle_s  *modify_circle(Figure *circle){
     return (circle->circle);
 }
 
-//change_point_polyline()
-
+/**
+ * @brief Inverts all points of a polyline along the X or Y axis based on user selection.
+ * 
+ * @param polyline Pointer to the `polyline_s` structure to be inverted.
+ */
 void    inversion_polyline(polyline_s *polyline){
     poly_point_s    *temp = polyline->node;
 
@@ -475,7 +555,14 @@ void    inversion_polyline(polyline_s *polyline){
     }
 }
 
-
+/**
+ * @brief Displays an interactive menu to modify properties of a polyline or polygon.
+ * 
+ * Allows modifying the stroke color, fill color, translation, inversion, and rotation.
+ * 
+ * @param polyline Pointer to the `Figure` union/structure containing the polyline.
+ * @return polyline_s* Pointer to the modified polyline structure.
+ */
 polyline_s  *modify_polyline(Figure *polyline){
     int input_user;
     while (1){
@@ -486,10 +573,9 @@ polyline_s  *modify_polyline(Figure *polyline){
         printf("||select 1 to modify strok color                  ||\n");
         if (polyline->polyline->color_fill)
             printf("||select 2 to modify the fill color               ||\n");
-        printf("||select 3 to modify a point                      ||\n");
-        printf("||select 4 to translate                           ||\n");
-        printf("||select 5 for inversion x or y                   ||\n");
-        printf("||select 6 to rotate                              ||\n");
+        printf("||select 3 to translate                           ||\n");
+        printf("||select 4 for inversion x or y                   ||\n");
+        printf("||select 5 to rotate                              ||\n");
         printf(" ---------------------------------------------------\n");
         scanf("%d",&input_user);
         clear_stdin();
@@ -508,15 +594,12 @@ polyline_s  *modify_polyline(Figure *polyline){
                 }
                 break;
             case 3:
-                //change_point_polyline();
-                break;
-            case 4:
                 translate_shape(polyline->polyline->transform);
                 break;
-            case 5:
+            case 4:
                 inversion_polyline(polyline->polyline);
                 break;
-            case 6:
+            case 5:
                 rotate_shape(polyline->polyline->transform);
                 break;
             default:
@@ -525,6 +608,13 @@ polyline_s  *modify_polyline(Figure *polyline){
     }
 }
 
+/**
+ * @brief Selects a shape from the list based on index and routes it to the correct shape-specific modification function.
+ * 
+ * @param list Pointer to the `list_s` structure containing all shapes.
+ * @param user_input 1-indexed identifier of the shape to modify.
+ * @return list_s* Pointer to the updated list.
+ */
 list_s *modify_shape_selected(list_s *list, int user_input){
     node_s *temp = list->node;
     int i = 0;
@@ -561,6 +651,11 @@ list_s *modify_shape_selected(list_s *list, int user_input){
     return list;
 }
 
+/**
+ * @brief Prompts the user for a shape number and removes it from the list.
+ * 
+ * @param list Pointer to the `list_s` structure from which the shape will be deleted.
+ */
 void    delete_shape(list_s* list){
     int input_user = 0;
     printf("enter the number of shape you want to delete\n");
@@ -570,6 +665,12 @@ void    delete_shape(list_s* list){
         supp_node(list, input_user - 1);
 }
 
+/**
+ * @brief Displays the main shape management menu, printing all figures and handling user selection for modification or deletion.
+ * 
+ * @param list Pointer to the `list_s` structure containing all shapes.
+ * @return int Returns `0` on exit, or `1` if the shape list is empty.
+ */
 int modify_forme(list_s *list){
     int count_line;
     int count_circle;
