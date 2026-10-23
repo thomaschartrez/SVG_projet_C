@@ -11,6 +11,9 @@ int    add_new_forme(list_s *list){
 
     while(1){
         system("clear");
+        printf(GREEN "        ┌─────────────────────────────────────────┐\n" RESET);
+        printf(GREEN "        │              🎨 SVG EDITOR              │\n" RESET);
+        printf(GREEN "        └─────────────────────────────────────────┘\n\n" RESET);
         printf(" ---------------------------------------------------\n");
         printf("||       0 : ❌ to quit                           ||\n");
         printf("||       1 : 📏 to create a line                  ||\n");

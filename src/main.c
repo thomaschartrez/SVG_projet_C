@@ -32,7 +32,10 @@ int main(void){
         system("clear");
         if (i == 0)
             printf(GREEN"nothing to modify\n"RESET);
-       printf("    ---------------------------------------------------\n");
+        printf(GREEN "        ┌─────────────────────────────────────────┐\n" RESET);
+        printf(GREEN "        │              🎨 SVG EDITOR              │\n" RESET);
+        printf(GREEN "        └─────────────────────────────────────────┘\n\n" RESET);
+        printf("    ---------------------------------------------------\n");
         printf("    ||               0 : ❌ Quit                     ||\n");
         printf("    ||               1 : ➕ Create                   ||\n");
         printf("    ||               2 : ✏️  Modify                   ||\n");

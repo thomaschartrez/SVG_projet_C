@@ -99,6 +99,10 @@ int creat_save(list_s *list){
 
     if (list->node == NULL)
         return -1;
+    system("clear");
+    printf(GREEN "        ┌─────────────────────────────────────────┐\n" RESET);
+    printf(GREEN "        │              🎨 SVG EDITOR              │\n" RESET);
+    printf(GREEN "        └─────────────────────────────────────────┘\n\n" RESET);
     printf("enter the path of the file\n");
     scanf("%50s", path);
     file = fopen(path,"wc");

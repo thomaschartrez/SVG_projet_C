@@ -514,7 +514,7 @@ polyline_s  *modify_polyline(Figure *polyline){
                 translate_shape(polyline->polyline->transform);
                 break;
             case 5:
-                //inversion_polyline(polyline->polyline);
+                inversion_polyline(polyline->polyline);
                 break;
             case 6:
                 rotate_shape(polyline->polyline->transform);
@@ -594,6 +594,9 @@ int modify_forme(list_s *list){
         count_polygone = 1;
         count_polyline = 1;
         i = 1;
+        printf(GREEN "        ┌─────────────────────────────────────────┐\n" RESET);
+        printf(GREEN "        │              🎨 SVG EDITOR              │\n" RESET);
+        printf(GREEN "        └─────────────────────────────────────────┘\n\n" RESET);
         printf(" ---------------------------------------------------\n");
         printf("to select the element you want please selecte a number between 0 and %d\n\n", list->length);
         printf("0  ❌ to quit\n");
@@ -602,42 +605,42 @@ int modify_forme(list_s *list){
             switch (temp->type)
             {
                 case LINE:
-                    printf("select %d, to line number %d\n", i , count_line);
+                    printf("select %d, to line 📏 number %d\n", i , count_line);
                     print_line(temp->figure->line);
                     i++;
                     count_line++;
                 break;
                 case CIRCLE:
-                    printf("select %d, to circle number %d\n", i, count_circle);
+                    printf("select %d, to circle 🔵 number %d\n", i, count_circle);
                     print_circle(temp->figure->circle);
                     i++;
                     count_circle++;
                 break;
                 case ELLIPSE:
-                    printf("select %d, to ellipse number %d\n", i, count_ellipse);
+                    printf("select %d, to ellipse 🟠 number %d\n", i, count_ellipse);
                     print_ellipse(temp->figure->elipse);
                     i++;
                     count_ellipse++;
                 break;
                 case RECTANGLE:
-                    printf("select %d, to rectangle number %d\n", i, count_rectangle);
+                    printf("select %d, to rectangle 🟦 number %d\n", i, count_rectangle);
                     print_rectangle(temp->figure->rectangle);
                     i++;
                     count_rectangle++;
                 break;
                 case SQUARE:
-                    printf("select %d, to square number %d\n", i, count_square);
+                    printf("select %d, to square ⬛ number %d\n", i, count_square);
                     print_square(temp->figure->rectangle);
                     i++;
                     count_square++;
                 break;
                 case POLYLINE:
-                    printf("select %d, to square number %d\n", i, count_polyline);
+                    printf("select %d, to polyline 〰️ number %d\n", i, count_polyline);
                     print_polyline(temp->figure->polyline);
                     count_polyline++;
                     break;
                 case POLYGONE:
-                    printf("select %d, to square number %d\n", i, count_polygone);
+                    printf("select %d, to polygone ⬡ number %d\n", i, count_polygone);
                     print_polyline(temp->figure->polyline);
                     count_polygone++;
                     break;

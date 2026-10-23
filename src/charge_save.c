@@ -670,6 +670,10 @@ list_s  *get_save(list_s *list){
     FILE *file;
     char way[51];
 
+    system("clear");
+    printf(GREEN "        ┌─────────────────────────────────────────┐\n" RESET);
+    printf(GREEN "        │              🎨 SVG EDITOR              │\n" RESET);
+    printf(GREEN "        └─────────────────────────────────────────┘\n\n" RESET);
     printf("enter the path of the save you want to upload\n");
     scanf("%50s", way);
     clear_stdin();
